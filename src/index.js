@@ -11,6 +11,8 @@ import Positions from "./components/Positions";
 import AddPosition from "./components/AddPosition";
 import AddEmployee from "./components/AddEmployee";
 import Login from "./components/Login";
+import Schedule from "./components/Schedule";
+import Position from "./components/Position";
 
 const router = createBrowserRouter([
     {
@@ -24,6 +26,10 @@ const router = createBrowserRouter([
                 element: <Schedules />,
             },
             {
+                path: "/schedule/:id",
+                element: <Schedule />,
+            },
+            {
                 path: "/annual-leave-request",
                 element: <AnnualLeaveRequest />,
             },
@@ -34,6 +40,10 @@ const router = createBrowserRouter([
             {
                 path: "/positions",
                 element: <Positions/>
+            },
+            {
+                path: "/positions/:id",
+                element: <Position/>
             },
             {
                 path: "/admin/add-position",
