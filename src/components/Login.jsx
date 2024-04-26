@@ -1,13 +1,29 @@
 import {useState} from "react";
 import Input from "./form/input";
+import {useNavigate, useOutletContext} from "react-router-dom";
 
 const Login = () => {
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
+    const { setJwtToken } = useOutletContext();
+    const { setAlertMessage} = useOutletContext();
+    const { setAlertClassName } = useOutletContext();
+    const navigate = useNavigate();
+
     const handleSubmit = (event) => {
         event.preventDefault();
+        if (email === "admin@example.com") {
+            console.log("email/pass", email, password)
+            setJwtToken("asd")
+            setAlertClassName("d-none");
+            setAlertMessage("")
+            navigate("/")
+        } else {
+            setAlertClassName("alert-danger")
+            setAlertMessage("Invalid credentials")
+        }
     }
 
     return (
@@ -25,7 +41,7 @@ const Login = () => {
                            onChange={(event) => setPassword(event.target.value)}
                     />
                     <hr/>
-                    <input type="submit"/>
+                    <input type="submit" className="btn btn-primary" value="Login"/>
                 </form>
             </div>
         </>
