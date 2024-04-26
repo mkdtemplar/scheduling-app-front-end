@@ -29,6 +29,7 @@ function App() {
                         <Link to="/schedule/:id" className="list-group-item list-group-item-action">Schedule</Link>
                         <Link to="/positions" className="list-group-item list-group-item-action">Positions</Link>
                         <Link to="/annual-leave-request" className="list-group-item list-group-item-action">Annual Leave Request</Link>
+                        <Link to="/login" className="list-group-item list-group-item-action">Login</Link>
                         {
                             jwtToken !== "" &&
                             <>
