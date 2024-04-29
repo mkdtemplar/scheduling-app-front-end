@@ -5,47 +5,52 @@ const Positions = () => {
     const [position, setPosition] = useState([]);
 
     useEffect(() => {
-        let positionsListList = [
-            {
-                id: 1,
-                positionName: "front entrance",
-                employeeName: ["Person_1", "Person_2", "Person3"],
-            },
-            {
-                id: 2,
-                positionName: "vip entrance",
-                employeeName: ["Person_4", "Person_5", "Person6"],
-            },
-            {
-                id: 3,
-                positionName: "warehouse entrance",
-                employeeName: ["Person_7", "Person_8", "Person_9"],
-            },
-        ];
-        setPosition(positionsListList);
+        const header = new Headers()
+        header.append('Content-Type', 'application/json')
+
+        const requestOptions = {
+            method: "GET",
+            headers: header,
+        }
+
+        fetch(`http://localhost:8080/admin/position/all-positions`, requestOptions)
+            .then((res) => res.json())
+            .then((data) => {
+                setPosition(data)
+            })
+            .catch(err => console.log(err));
 
     }, []);
     return (
-            <div>
-                <h2>Positions</h2>
-                <hr/>
-                <table className="table table-striped table-hover">
-                    <thead>
-                        <tr>
-                            <th>Position</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    {position.map((p) => (
-                        <tr key={p.id}>
-                            <td>
-                                <Link to={`/positions/${p.id}`}>{p.positionName}</Link>
-                            </td>
-                        </tr>
-                    ))}
-                    </tbody>
-                </table>
-            </div>
+        <div>
+            <h2>Positions</h2>
+            <hr/>
+            <table className="table table-striped table-hover">
+                <thead>
+                <tr>
+                    <th>Position Name</th>
+                    <th>Employes</th>
+                </tr>
+                </thead>
+                <tbody>
+                {position.map((m) => (
+                    <tr key={m.id}>
+                        <td>
+                            <Link to={`/positions/${m.id}`}>
+                                {m.position_name}
+                            </Link>
+                        </td>
+                        {m.employees !== null ?
+                            m.employees.flatMap(employee => (
+                                    <tr key={employee.id}>{employee}</tr>
+                                ))
+                            : <td></td>
+                        }
+                    </tr>
+                ))}
+                </tbody>
+            </table>
+        </div>
     )
 }
 

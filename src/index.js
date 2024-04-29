@@ -38,7 +38,7 @@ const router = createBrowserRouter([
                 element: <ManageSchedules/>,
             },
             {
-                path: "/positions",
+                path: "/admin/position/all-positions",
                 element: <Positions/>
             },
             {
