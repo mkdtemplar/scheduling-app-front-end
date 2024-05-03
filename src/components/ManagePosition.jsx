@@ -1,14 +1,14 @@
 import {useEffect, useState} from "react";
 import {Link, useNavigate, useOutletContext} from "react-router-dom";
 
-const Positions = () => {
+const ManagePosition = () => {
     const [position, setPosition] = useState([]);
     const {jwtToken} = useOutletContext()
-    const nav = useNavigate()
+    const navigate = useNavigate();
 
     useEffect(() => {
         if (jwtToken === "") {
-            nav("/")
+            navigate("/login")
             return
         }
         const header = new Headers()
@@ -27,10 +27,10 @@ const Positions = () => {
             })
             .catch(err => console.log(err));
 
-    }, [jwtToken, nav]);
+    }, [jwtToken, navigate]);
     return (
         <div>
-            <h2>Positions</h2>
+            <h2>Edit Position</h2>
             <hr/>
             <table className="table table-bordered table-hover">
                 <thead>
@@ -48,7 +48,7 @@ const Positions = () => {
                 {position.map((m) => (
                     <tr key={m.id}>
                         <td>
-                            <Link to={`/positions/${m.id}`}>
+                            <Link to={`/admin/positions/${m.id}`}>
                                 {m.position_name}
                             </Link>
                         </td>
@@ -56,8 +56,8 @@ const Positions = () => {
                         <td>
                             {m.users !== null ?
                                 m.users.map((user) => (
-                                        <tr>{user.first_name}</tr>
-                                    ))
+                                    <tr>{user.first_name}</tr>
+                                ))
                                 : <td></td>
                             }
                         </td>
@@ -94,4 +94,4 @@ const Positions = () => {
     )
 }
 
-export default Positions;
+export default ManagePosition;

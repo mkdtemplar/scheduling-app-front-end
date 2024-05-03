@@ -13,7 +13,7 @@ import AddEmployee from "./components/AddEmployee";
 import Login from "./components/Login";
 import Schedule from "./components/Schedule";
 import Position from "./components/Position";
-import EditPosition from "./components/EditPosition";
+import ManagePosition from "./components/ManagePosition";
 
 const router = createBrowserRouter([
     {
@@ -59,8 +59,8 @@ const router = createBrowserRouter([
                 element: <Login/>,
             },
             {
-                path: "/admin/edit-position",
-                element: <EditPosition/>,
+                path: "/admin/manage-position",
+                element: <ManagePosition/>,
             }
         ]
     }
