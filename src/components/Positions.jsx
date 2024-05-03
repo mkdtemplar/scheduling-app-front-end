@@ -1,19 +1,21 @@
 import {useEffect, useState} from "react";
-import {Link} from "react-router-dom";
+import {Link, useOutletContext} from "react-router-dom";
 
 const Positions = () => {
     const [position, setPosition] = useState([]);
+    const {jwtToken} = useOutletContext()
 
     useEffect(() => {
         const header = new Headers()
         header.append('Content-Type', 'application/json')
+        header.append('Authorization', 'Bearer ' + jwtToken)
 
         const requestOptions = {
             method: "GET",
             headers: header,
         }
 
-        fetch(`http://localhost:8080/admin/position/all-positions`, requestOptions)
+        fetch(`/admin/position/all-positions`, requestOptions)
             .then((res) => res.json())
             .then((data) => {
                 setPosition(data)
@@ -29,7 +31,12 @@ const Positions = () => {
                 <thead>
                 <tr>
                     <th>Position Name</th>
-                    <th>Employes</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Email</th>
+                    <th> Current Position</th>
+                    <th> Role</th>
+                    <th>Shifts</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -40,12 +47,40 @@ const Positions = () => {
                                 {m.position_name}
                             </Link>
                         </td>
-                        {m.employees !== null ?
-                            m.employees.flatMap(employee => (
-                                    <tr key={employee.id}>{employee}</tr>
-                                ))
-                            : <td></td>
-                        }
+
+                        <td>
+                            {m.users !== null ?
+                                m.users.map((user) => (
+                                        user.first_name
+                                    ))
+                            : null
+                            }
+                        </td>
+                        <td>
+                            {m.users.map((user) => (
+                                user.last_name
+                            ))}
+                        </td>
+                        <td>
+                            {m.users.map((user) => (
+                                user.email
+                            ))}
+                        </td>
+                        <td>
+                            {m.users.map((user) => (
+                                user.current_position
+                            ))}
+                        </td>
+                        <td>
+                            {m.users.map((user) => (
+                                user.role
+                            ))}
+                        </td>
+                        <td>
+                            {m.users.map((user) => (
+                                user.shifts
+                            ))}
+                        </td>
                     </tr>
                 ))}
                 </tbody>
