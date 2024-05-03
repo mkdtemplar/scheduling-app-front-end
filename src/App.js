@@ -1,5 +1,5 @@
 import {Link, Outlet, useNavigate} from "react-router-dom";
-import {useEffect, useState} from "react";
+import {useCallback, useEffect, useState} from "react";
 import Alert from "./components/Alert";
 
 function App() {
@@ -8,6 +8,9 @@ function App() {
     const [alertMessage, setAlertMessage] = useState("");
     const [alertClassName, setAlertClassName] = useState("d-none");
     const navigate = useNavigate();
+
+    const [tickInterval, setTickInterval] = useState();
+
     const logOut = () => {
        const requestOptions = {
            method: "GET",
@@ -19,9 +22,36 @@ function App() {
            })
            .finally(() => {
                setJwtToken("")
+               toogleRefresh(false)
            })
         navigate("/login")
     }
+
+    const toogleRefresh = useCallback( (status) => {
+        if (status) {
+            let i = setInterval(() => {
+                const requestOptions = {
+                    method: "GET",
+                    credentials: 'include',
+                }
+                fetch(`/refresh`, requestOptions)
+                    .then((response) => response.json())
+                    .then((data) => {
+                        if (data.access_token) {
+                            setJwtToken(data.access_token)
+                            toogleRefresh(true)
+                        }
+                    })
+                    .catch(error => {
+                        console.log("user not logged in", error.json())
+                    })
+            }, 600000)
+            setTickInterval(i)
+        } else {
+            setTickInterval(null)
+            clearInterval(tickInterval)
+        }
+    }, [tickInterval])
 
     useEffect(() => {
         if (jwtToken === "") {
@@ -34,13 +64,14 @@ function App() {
                 .then((data) => {
                     if (data.access_token) {
                         setJwtToken(data.access_token)
+                        toogleRefresh(true)
                     }
                 })
                 .catch(error => {
                     console.log("user not logged in", error)
                 })
         }
-    }, [jwtToken]);
+    }, [jwtToken, toogleRefresh]);
 
   return (
     <div className="container">
@@ -90,6 +121,7 @@ function App() {
                     setJwtToken,
                     setAlertMessage,
                     setAlertClassName,
+                    toogleRefresh,
                 }}/>
             </div>
         </div>
