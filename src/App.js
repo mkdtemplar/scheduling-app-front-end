@@ -101,7 +101,7 @@ function App() {
                         {
                             jwtToken !== "" &&
                             <>
-                                <Link to="/admin/add-position" className="list-group-item list-group-item-action">Add position</Link>
+                                <Link to="/admin/add-position" className="list-group-item list-group-item-action">Edit/Add position</Link>
                                 <Link to="/admin/manage-position" className="list-group-item list-group-item-action">Manage positions</Link>
                                 <Link to="/admin" className="list-group-item list-group-item-action">Manage Schedule</Link>
                                 <Link to="/admin/add-employees" className="list-group-item list-group-item-action">Add employees</Link>
