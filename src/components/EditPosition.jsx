@@ -16,7 +16,7 @@ const EditPosition = () => {
     const [position, setPosition] = useState({
         id: "",
         position_name: "",
-        users: "",
+        users: [],
         shifts: [],
     });
 
@@ -38,11 +38,11 @@ const EditPosition = () => {
         event.preventDefault();
     }
     const handleChange = () => (event) => {
-        let value = [event.target.value] ;
+        let value = event.target.value ;
         let name = [event.target.name];
         setPosition({
             ...position,
-            [name]: value.push(value),
+            [name]: value,
         })
 
     }
