@@ -13,6 +13,8 @@ import AddEmployee from "./components/AddEmployee";
 import Login from "./components/Login";
 import Schedule from "./components/Schedule";
 import Position from "./components/Position";
+import ManagePosition from "./components/ManagePosition";
+import EditPosition from "./components/EditPosition";
 
 const router = createBrowserRouter([
     {
@@ -38,16 +40,12 @@ const router = createBrowserRouter([
                 element: <ManageSchedules/>,
             },
             {
-                path: "/positions",
+                path: "/admin/position/all-positions",
                 element: <Positions/>
             },
             {
                 path: "/positions/:id",
                 element: <Position/>
-            },
-            {
-                path: "/admin/add-position",
-                element: <AddPosition />,
             },
             {
                 path: "/admin/add-employees",
@@ -56,6 +54,14 @@ const router = createBrowserRouter([
             {
                 path: "/login",
                 element: <Login/>,
+            },
+            {
+                path: "/admin/manage-position",
+                element: <ManagePosition/>,
+            },
+            {
+                path: "/admin/add-position",
+                element: <EditPosition/>,
             },
         ]
     }
