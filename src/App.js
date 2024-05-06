@@ -95,15 +95,15 @@ function App() {
                         <Link to="/" className="list-group-item list-group-item-action">Home</Link>
                         <Link to="/schedules" className="list-group-item list-group-item-action">Schedules</Link>
                         <Link to="/schedule/:id" className="list-group-item list-group-item-action">Schedule</Link>
-                        <Link to="/admin/position/all-positions" className="list-group-item list-group-item-action">Positions</Link>
                         <Link to="/annual-leave-request" className="list-group-item list-group-item-action">Annual Leave Request</Link>
                         <Link to="/login" className="list-group-item list-group-item-action">Login</Link>
+                        <Link to="/positions" className="list-group-item list-group-item-action">Positions</Link>
                         {
                             jwtToken !== "" &&
                             <>
-                                <Link to="/admin/add-position" className="list-group-item list-group-item-action">Edit/Add position</Link>
+                                <Link to="/admin/positions/0" className="list-group-item list-group-item-action">Edit/Add position</Link>
                                 <Link to="/admin/manage-position" className="list-group-item list-group-item-action">Manage positions</Link>
-                                <Link to="/admin" className="list-group-item list-group-item-action">Manage Schedule</Link>
+                                <Link to="/admin/mange-schedule" className="list-group-item list-group-item-action">Manage Schedule</Link>
                                 <Link to="/admin/add-employees" className="list-group-item list-group-item-action">Add employees</Link>
                             </>
                         }

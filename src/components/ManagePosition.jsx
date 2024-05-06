@@ -18,9 +18,10 @@ const ManagePosition = () => {
         const requestOptions = {
             method: "GET",
             headers: header,
+            credentials: 'include',
         }
 
-        fetch(`/admin/position/all-positions`, requestOptions)
+        fetch(`/positions`, requestOptions)
             .then((res) => res.json())
             .then((data) => {
                 setPosition(data)
@@ -28,9 +29,16 @@ const ManagePosition = () => {
             .catch(err => console.log(err));
 
     }, [jwtToken, navigate]);
+
+    if (position.users) {
+        position.users = Object.values(position.users);
+    } else {
+        position.users = [];
+    }
+
     return (
         <div>
-            <h2>Edit Position</h2>
+            <h2>Positions</h2>
             <hr/>
             <table className="table table-bordered table-hover">
                 <thead>
@@ -48,43 +56,58 @@ const ManagePosition = () => {
                 {position.map((m) => (
                     <tr key={m.id}>
                         <td>
-                            <Link to={`/admin/positions/${m.id}`}>
+                            <Link to={`/position/${m.id}`}>
                                 {m.position_name}
                             </Link>
                         </td>
 
                         <td>
-                            {m.users !== null ?
-                                m.users.map((user) => (
+                            {m.users !== undefined ?
+                                m.users?.map((user) => (
                                     <tr>{user.first_name}</tr>
                                 ))
                                 : <td></td>
                             }
                         </td>
                         <td>
-                            {m.users.map((user) => (
-                                <tr>{user.last_name}</tr>
-                            ))}
+                            {m.users !== undefined ?
+                                m.users?.map((user) => (
+                                    <tr>{user.last_name}</tr>
+                                ))
+                                : <td></td>
+                            }
                         </td>
                         <td>
-                            {m.users.map((user) => (
-                                <tr>{user.email}</tr>
-                            ))}
+                            {m.users !== undefined ?
+                                m.users?.map((user) => (
+                                    <tr>{user.email}</tr>
+                                ))
+                                : <td></td>
+                            }
                         </td>
                         <td>
-                            {m.users.map((user) => (
-                                <tr>{user.current_position}</tr>
-                            ))}
+                            {m.users !== undefined ?
+                                m.users?.map((user) => (
+                                    <tr>{user.current_position}</tr>
+                                ))
+                                : <td></td>
+                            }
                         </td>
                         <td>
-                            {m.users.map((user) => (
-                                <tr>{user.role}</tr>
-                            ))}
+                            {m.users !== undefined ?
+                                m.users?.map((user) => (
+                                    <tr>{user.role}</tr>
+                                ))
+                                : <td></td>
+                            }
                         </td>
                         <td>
-                            {m.users.map((user) => (
-                                <tr>{user.shifts}</tr>
-                            ))}
+                            {m.users !== undefined ?
+                                m.users?.map((user) => (
+                                    <tr>{user.shifts}</tr>
+                                ))
+                                : <td></td>
+                            }
                         </td>
                     </tr>
                 ))}
