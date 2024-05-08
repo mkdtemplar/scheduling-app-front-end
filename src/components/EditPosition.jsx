@@ -62,8 +62,6 @@ const EditPosition = () => {
 
                     data.forEach((item) => {
                         checks.push({id: item.id, checked: false, user: item.first_name + " " + item.last_name})
-                        userForSelect.push({user: item.first_name + " " + item.last_name})
-                        console.log("user for select: ", userForSelect)
                     })
                     setPosition(p =>({
                         ...p,
@@ -80,6 +78,28 @@ const EditPosition = () => {
 
     const handleSubmit = (event) => {
         event.preventDefault();
+        let errors = []
+        let required = [
+            {field: position.position_name, name: "position_name"},
+            {field: position.users, name: "users"}
+        ]
+
+        required.forEach(function (obj) {
+            if (obj.field === "") {
+                errors.push(obj.name)
+            }
+        })
+
+        if (position.users_array === 0) {
+            alert("Choose employee")
+            errors.push("users")
+        }
+
+        setErrors(errors)
+
+        if (errors.length > 0) {
+            return false
+        }
     }
     const handleChange = () => (event) => {
         let value = event.target.value ;
@@ -130,7 +150,7 @@ const EditPosition = () => {
                     name="position_name"
                     value={position.position_name}
                     onChange={handleChange("position_name")}
-                    errorDiv = {hasError("position_name") ? "alert alert-danger" : "d-none"}
+                    errorDiv = {hasError("position_name") ? "text-danger" : "d-none"}
                     errorMsg={"Position Name is required"}
                 />
                 {position.users && position.users.length > 1 &&
@@ -154,9 +174,9 @@ const EditPosition = () => {
                         {Array.from(position.users).map((u, index) =>
                             <Checkbox
                                 title={u.user}
-                                name={"user"}
+                                name={"users"}
                                 key={index}
-                                id={"user" + index}
+                                id={"users" + index}
                             onChange={(event) => handleCheck(event, index)}
                             value={u.id}
                             checked={position.users[index].checked}
@@ -165,6 +185,8 @@ const EditPosition = () => {
                     )}
                     </>
                 }
+                <hr/>
+                <button className="btn btn-primary">Save</button>
 
             </form>
         </div>
