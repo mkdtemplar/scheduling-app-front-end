@@ -1,25 +1,19 @@
 import {useNavigate, useOutletContext, useParams} from "react-router-dom";
 import {useEffect, useState} from "react";
 import Input from "./form/input";
-import Select from "./form/Select";
 import Checkbox from "./form/Checkbox";
+import Swal from "sweetalert2";
 
 const EditPosition = () => {
     let {id} = useParams();
     const {jwtToken} = useOutletContext()
     const nav = useNavigate()
 
-    let userForSelect =  [
-        {user: ""},
-    ]
-
     const [error, setError] = useState(null);
     const [errors, setErrors] = useState([]);
     const hasError = (key) => {
         return errors.indexOf(key) !== -1
     }
-
-    const [users, setUsers] = useState([]);
 
     const [position, setPosition] = useState({
         id: "",
@@ -61,7 +55,7 @@ const EditPosition = () => {
                     const checks =  []
 
                     data.forEach((item) => {
-                        checks.push({id: item.id, checked: false, user: item.first_name + " " + item.last_name})
+                        checks.push({id: item.id, checked: false, name_surname: item.name_surname})
                     })
                     setPosition(p =>({
                         ...p,
@@ -81,7 +75,6 @@ const EditPosition = () => {
         let errors = []
         let required = [
             {field: position.position_name, name: "position_name"},
-            {field: position.users, name: "users"}
         ]
 
         required.forEach(function (obj) {
@@ -91,7 +84,12 @@ const EditPosition = () => {
         })
 
         if (position.users_array === 0) {
-            alert("Choose employee")
+            Swal.fire({
+                title: "Error!",
+                text: 'You must choose employee',
+                icon: "error",
+                confirmButtonText: "OK",
+            })
             errors.push("users")
         }
 
@@ -140,7 +138,7 @@ const EditPosition = () => {
         <div>
             <h2>Add/Edit Position</h2>
             <hr/>
-            <pre>{JSON.stringify(position, null, 3)}</pre>
+            {/*<pre>{JSON.stringify(position, null, 3)}</pre>*/}
             <form onSubmit={handleSubmit}>
                 <input type="hidden" name="id" id="id" value={position.id}/>
                 <Input
@@ -153,19 +151,6 @@ const EditPosition = () => {
                     errorDiv = {hasError("position_name") ? "text-danger" : "d-none"}
                     errorMsg={"Position Name is required"}
                 />
-                {position.users && position.users.length > 1 &&
-                    <>
-                        {/*<Select*/}
-                        {/*    title={"user"}*/}
-                        {/*    name={"user"}*/}
-                        {/*    options={userForSelect}*/}
-                        {/*    onChange={handleChange("user")}*/}
-                        {/*    placeholder={"Choose employees"}*/}
-                        {/*    errorMsg={"Employees is required"}*/}
-                        {/*    errorDiv={hasError("employees") ? "alert alert-danger" : "d-none"}*/}
-                        {/*/>*/}
-                    </>
-                }
 
                 <h3>Users</h3>
                 {position.users && position.users.length > 1 &&
@@ -173,10 +158,10 @@ const EditPosition = () => {
                     <>
                         {Array.from(position.users).map((u, index) =>
                             <Checkbox
-                                title={u.user}
-                                name={"users"}
+                                title={u.name_surname}
+                                name={"name_surname"}
                                 key={index}
-                                id={"users" + index}
+                                id={"name_surname-" + index}
                             onChange={(event) => handleCheck(event, index)}
                             value={u.id}
                             checked={position.users[index].checked}
