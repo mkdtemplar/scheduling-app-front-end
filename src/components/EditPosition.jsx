@@ -138,7 +138,7 @@ const EditPosition = () => {
         <div>
             <h2>Add/Edit Position</h2>
             <hr/>
-            {/*<pre>{JSON.stringify(position, null, 3)}</pre>*/}
+            <pre>{JSON.stringify(position, null, 3)}</pre>
             <form onSubmit={handleSubmit}>
                 <input type="hidden" name="id" id="id" value={position.id}/>
                 <Input
