@@ -15,6 +15,7 @@ const EditPosition = () => {
         return errors.indexOf(key) !== -1
     }
 
+
     const [position, setPosition] = useState({
         id: "",
         position_name: "",
