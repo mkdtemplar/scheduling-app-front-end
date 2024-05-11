@@ -76,7 +76,6 @@ const AddEmployee = () => {
         headers.append("Content-Type", "application/json");
         headers.append("Authorization", "Bearer " + jwtToken);
 
-        // assume we are adding a new movie
         let method = "PUT";
 
 

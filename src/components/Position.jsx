@@ -39,7 +39,8 @@ const Position = () => {
                 <thead>
                 <tr>
                     <th>Position Name</th>
-                    <th>Name/Surname</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
                     <th>Email</th>
                     <th> Current Position</th>
                     <th> Role</th>
@@ -48,52 +49,60 @@ const Position = () => {
                 </thead>
                 <tbody>
 
-                    <tr key={position.id}>
-                        <td>
-                            {position.position_name}
-                        </td>
+                <tr key={position.id}>
+                    <td>
+                        {position.position_name}
+                    </td>
 
-                        <td>
-                            {position.users !== undefined ?
-                                position.users?.map((user) => (
-                                    <tr>{user.name_surname}</tr>
-                                ))
-                                : <td></td>
-                            }
-                        </td>
-                        <td>
-                            {position.users !== undefined ?
-                                position.users?.map((user) => (
-                                    <tr>{ user.email}</tr>
-                                ))
-                                : <td></td>
-                            }
-                        </td>
-                        <td>
-                            {position.users !== undefined ?
-                                position.users?.map((user) => (
-                                    <tr>{ user.current_position}</tr>
-                                ))
-                                : <td></td>
-                            }
-                        </td>
-                        <td>
-                            {position.users !== undefined ?
-                                position.users?.map((user) => (
-                                    <tr>{user.role}</tr>
-                                ))
-                                : <td></td>
-                            }
-                        </td>
-                        <td>
-                            {position.users !== undefined ?
-                                position.users?.map((user) => (
-                                    <tr>{ user.shifts}</tr>
-                                ))
-                                : <td></td>
-                            }
-                        </td>
-                    </tr>
+                    <td>
+                        {position.users !== undefined ?
+                            position.users?.map((user) => (
+                                <tr>{user.first_name}</tr>
+                            ))
+                            : <td></td>
+                        }
+                    </td>
+                    <td>
+                        {position.users !== undefined ?
+                            position.users?.map((user) => (
+                                <tr>{user.last_name}</tr>
+                            ))
+                            : <td></td>
+                        }
+                    </td>
+                    <td>
+                        {position.users !== undefined ?
+                            position.users?.map((user) => (
+                                <tr>{user.email}</tr>
+                            ))
+                            : <td></td>
+                        }
+                    </td>
+                    <td>
+                        {position.users !== undefined ?
+                            position.users?.map((user) => (
+                                <tr>{user.current_position}</tr>
+                            ))
+                            : <td></td>
+                        }
+                    </td>
+                    <td>
+                        {position.users !== undefined ?
+                            position.users?.map((user) => (
+                                <tr>{user.role}</tr>
+                            ))
+                            : <td></td>
+                        }
+                    </td>
+                    <td>
+                        {position.users !== undefined ?
+                            position.users?.map((user) => (
+                                <tr>{user.shifts}</tr>
+                            ))
+                            : <td></td>
+                        }
+                    </td>
+                </tr>
                 </tbody>
             </table>
         </div>

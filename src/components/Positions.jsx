@@ -30,7 +30,8 @@ const Positions = () => {
                 <thead>
                 <tr>
                     <th>Position Name</th>
-                    <th>Name/Surname</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
                     <th>Email</th>
                     <th> Current Position</th>
                     <th> Role</th>
@@ -49,8 +50,16 @@ const Positions = () => {
                         <td>
                             {m.users !== undefined ?
                                 m.users?.map((user) => (
-                                        <tr>{user.name_surname}</tr>
-                                    ))
+                                    <tr>{user.first_name}</tr>
+                                ))
+                                : <td></td>
+                            }
+                        </td>
+                        <td>
+                            {m.users !== undefined ?
+                                m.users?.map((user) => (
+                                    <tr>{user.last_name}</tr>
+                                ))
                                 : <td></td>
                             }
                         </td>

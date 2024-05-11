@@ -3,7 +3,7 @@ import {useEffect, useState} from "react";
 import Input from "./form/input";
 import Checkbox from "./form/Checkbox";
 import Swal from "sweetalert2";
-import Select from "./form/Select";
+
 
 const EditPosition = () => {
     let {id} = useParams();
@@ -58,7 +58,7 @@ const EditPosition = () => {
                     const checks =  []
 
                     data.forEach((item) => {
-                        checks.push({id: item.id, checked: false, name_surname: item.name_surname})
+                        checks.push({id: item.id, checked: false, user: item.first_name + " " + item.last_name})
                     })
                     setPosition(p =>({
                         ...p,
@@ -161,10 +161,10 @@ const EditPosition = () => {
                     <>
                         {Array.from(position.users).map((u, index) =>
                             <Checkbox
-                                title={u.name_surname}
-                                name={"name_surname"}
+                                title={u.user}
+                                name={"users"}
                                 key={index}
-                                id={"name_surname-" + index}
+                                id={"users-" + index}
                             onChange={(event) => handleCheck(event, index)}
                             value={u.id}
                             checked={position.users[index].checked}
