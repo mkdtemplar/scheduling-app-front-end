@@ -2,7 +2,8 @@ import {useNavigate, useOutletContext, useParams} from "react-router-dom";
 import {useEffect, useState} from "react";
 import Input from "./form/input";
 
-const AddEmployee = () => {
+const EditUser = () => {
+    let {id} = useParams();
     const {jwtToken} = useOutletContext()
     const nav = useNavigate()
 
@@ -22,44 +23,13 @@ const AddEmployee = () => {
         current_position: "",
         role: "",
         position_id: "",
-        shifts: []
+        shifts: [],
+        user_position_array: []
     })
 
-
-    useEffect(() => {
-        if (jwtToken === "") {
-            nav("/login")
-        }
-
-        const header = new Headers()
-        header.append('Content-Type', 'application/json')
-        header.append("Authorization", "Bearer " + jwtToken);
-
-        const requestOptions = {
-            method: "PUT",
-            headers: header,
-            credentials: 'include',
-        }
-
-        fetch(`/admin/add-user`, requestOptions)
-            .then((res) => res.json())
-            .then((data) => {
-
-                setUser(u =>({
-                    ...u,
-                    id: parseInt(data.id),
-                    first_name: data.first_name,
-                    last_name: data.last_name,
-                    email: data.email,
-                    password: data.password,
-                    current_position: data.current_position,
-                    role: data.role,
-                    position_id: parseInt(data.position_id),
-                }))
-            })
-            .catch(err => console.log(err));
-
-    }, [jwtToken, nav]);
+    if (id === undefined) {
+        id = 0;
+    }
 
     const handleChange = () => (event) => {
         let value = event.target.value ;
@@ -71,14 +41,41 @@ const AddEmployee = () => {
 
     }
 
-    const handleSubmitUser = (event) => {
+    useEffect(() => {
+        if (jwtToken === "") {
+            nav("/login");
+        }
+
+        const headers = new Headers();
+        headers.append("Content-Type", "application/json");
+        headers.append("Authorization", "Bearer " + jwtToken);
+
+        const requestOptions = {
+            method: "GET",
+            headers: headers
+        }
+
+        fetch(`/admin/user-edit/${id}`, requestOptions)
+            .then((response) => {
+                if (response.status !== 200) {
+                    setError("Invalid response code: " + response.status)
+                }
+                return response.json()
+            })
+            .then((data) => {
+                setUser(data)
+            })
+
+    }, [id, nav, jwtToken]);
+
+    const handleSubmitUpdateUser = (event) => {
         event.preventDefault();
 
         const headers = new Headers();
         headers.append("Content-Type", "application/json");
         headers.append("Authorization", "Bearer " + jwtToken);
 
-        let method = "PUT";
+        let method = "PATCH";
 
 
         const requestBody = user;
@@ -89,7 +86,7 @@ const AddEmployee = () => {
             credentials: "include",
         }
 
-        fetch(`/admin/add-user`, requestOptions)
+        fetch(`/admin/user-edit/${user.id}`, requestOptions)
             .then((response) => response.json())
             .then((data) => {
                 if (data.error) {
@@ -103,14 +100,13 @@ const AddEmployee = () => {
             })
     }
 
-
     return (
         <>
             <div>
-                <h2>Add Employee</h2>
+                <h2>Edit Employee</h2>
                 <hr/>
                 <pre>{JSON.stringify(user, null, 3)}</pre>
-                <form onSubmit={handleSubmitUser}>
+                <form onSubmit={handleSubmitUpdateUser}>
                     <Input
                         title={"Employee ID"}
                         className={"form-control"}
@@ -201,4 +197,4 @@ const AddEmployee = () => {
     )
 }
 
-export default AddEmployee;
+export default EditUser

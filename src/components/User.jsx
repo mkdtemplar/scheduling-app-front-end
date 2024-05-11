@@ -1,30 +1,38 @@
 import {useEffect, useState} from "react";
-import {Link} from "react-router-dom";
+import {Link, useNavigate, useOutletContext, useParams} from "react-router-dom";
 
-const AllUsers = () => {
+const User = () => {
     const [users, setUsers] = useState([]);
+    let {id} = useParams();
+    const {jwtToken} = useOutletContext()
+    const nav = useNavigate()
 
     useEffect(() => {
 
+        if (jwtToken === "") {
+            nav("/login")
+        }
+
         const header = new Headers()
         header.append('Content-Type', 'application/json')
-
+        header.append("Authorization", "Bearer " + jwtToken);
         const requestOptions = {
             method: "GET",
             headers: header,
+            credentials: "include"
         }
 
-        fetch(`/all-users`, requestOptions)
+        fetch(`/admin/user/${id}`, requestOptions)
             .then((res) => res.json())
             .then((data) => {
                 setUsers(data)
             })
             .catch(err => console.log(err));
 
-    }, []);
+    }, [jwtToken, id, nav]);
     return (
         <div>
-            <h2>Users</h2>
+            <h2>User</h2>
             <hr/>
             <table className="table table-bordered table-hover">
                 <thead>
@@ -38,59 +46,56 @@ const AllUsers = () => {
                 </tr>
                 </thead>
                 <tbody>
-                {users.map((m) => (
-                    <tr key={m.id}>
+
+                    <tr key={users.id}>
                         <td>
-                            <Link to={`/user/${m.id}`}>
-                                {m.first_name}
-                            </Link>
+                            {users.first_name}
                         </td>
 
                         <td>
-                            {m.last_name !== undefined ?
+                            {users.last_name !== undefined ?
 
-                                <tr>{m.last_name}</tr>
+                                <tr>{users.last_name}</tr>
 
                                 : <td></td>
                             }
                         </td>
 
                         <td>
-                            {m.email !== undefined ?
+                            {users.email !== undefined ?
 
-                                <tr>{m.email}</tr>
-
-                                : <td></td>
-                            }
-                        </td>
-                        <td>
-                            {m.current_position !== undefined ?
-
-                                <tr>{m.current_position}</tr>
+                                <tr>{users.email}</tr>
 
                                 : <td></td>
                             }
                         </td>
                         <td>
-                            {m.role !== undefined ?
-                                <tr>{m.role}</tr>
+                            {users.current_position !== undefined ?
+
+                                <tr>{users.current_position}</tr>
+
                                 : <td></td>
                             }
                         </td>
                         <td>
-                            {m.users !== undefined ?
-                                m.users?.map((user) => (
+                            {users.role !== undefined ?
+                                <tr>{users.role}</tr>
+                                : <td></td>
+                            }
+                        </td>
+                        <td>
+                            {users.users !== undefined ?
+                                users.users?.map((user) => (
                                     <tr>{user.shifts}</tr>
                                 ))
                                 : <td></td>
                             }
                         </td>
                     </tr>
-                ))}
                 </tbody>
             </table>
         </div>
     )
 }
 
-export default AllUsers;
+export default User;
