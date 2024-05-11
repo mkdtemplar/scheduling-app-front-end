@@ -3,17 +3,20 @@ import {useEffect, useState} from "react";
 import Input from "./form/input";
 import Checkbox from "./form/Checkbox";
 import Swal from "sweetalert2";
+import Select from "./form/Select";
 
 const EditPosition = () => {
     let {id} = useParams();
     const {jwtToken} = useOutletContext()
     const nav = useNavigate()
 
+
     const [error, setError] = useState(null);
     const [errors, setErrors] = useState([]);
     const hasError = (key) => {
         return errors.indexOf(key) !== -1
     }
+
 
 
     const [position, setPosition] = useState({
@@ -31,7 +34,6 @@ const EditPosition = () => {
     useEffect(() => {
         if (jwtToken === "") {
             nav("/login")
-
         }
 
         if (id === 0) {
@@ -68,7 +70,6 @@ const EditPosition = () => {
         } else {
             // editing a position
         }
-
     }, [jwtToken, nav, id]);
 
     const handleSubmit = (event) => {
@@ -154,6 +155,7 @@ const EditPosition = () => {
                 />
 
                 <h3>Users</h3>
+
                 {position.users && position.users.length > 1 &&
 
                     <>
@@ -171,6 +173,7 @@ const EditPosition = () => {
                     )}
                     </>
                 }
+
                 <hr/>
                 <button className="btn btn-primary">Save</button>
 
