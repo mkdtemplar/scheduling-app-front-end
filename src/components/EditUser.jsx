@@ -14,7 +14,7 @@ const EditUser = () => {
         return errors.indexOf(key) !== -1
     }
 
-    const [user, setUser] = useState({
+    const [userEdit, setUser] = useState({
         id: "",
         first_name: "",
         last_name: "",
@@ -35,7 +35,7 @@ const EditUser = () => {
         let value = event.target.value ;
         let name = [event.target.name];
         setUser({
-            ...user,
+            ...userEdit,
             [name]: value,
         })
 
@@ -52,7 +52,8 @@ const EditUser = () => {
 
         const requestOptions = {
             method: "GET",
-            headers: headers
+            headers: headers,
+            credentials: "include"
         }
 
         fetch(`/admin/user-edit/${id}`, requestOptions)
@@ -73,20 +74,20 @@ const EditUser = () => {
 
         const headers = new Headers();
         headers.append("Content-Type", "application/json");
-        headers.append("Authorization", "Bearer " + jwtToken);
+        // headers.append("Authorization", "Bearer " + jwtToken);
 
         let method = "PATCH";
 
 
-        const requestBody = user;
+        const requestBody = userEdit;
         let requestOptions = {
             body: JSON.stringify(requestBody),
             method: method,
             headers: headers,
-            credentials: "include",
+            // credentials: "include",
         }
 
-        fetch(`/admin/user-edit/${user.id}`, requestOptions)
+        fetch(`/admin/edit-user/${userEdit.id}`, requestOptions)
             .then((response) => response.json())
             .then((data) => {
                 if (data.error) {
@@ -105,14 +106,13 @@ const EditUser = () => {
             <div>
                 <h2>Edit Employee</h2>
                 <hr/>
-                <pre>{JSON.stringify(user, null, 3)}</pre>
                 <form onSubmit={handleSubmitUpdateUser}>
                     <Input
                         title={"Employee ID"}
                         className={"form-control"}
                         type="number"
                         name="id"
-                        value={user.id}
+                        value={userEdit.id}
                         onChange={handleChange("id")}
                         errorDiv={hasError("id") ? "text-danger" : "d-none"}
                         errorMsg={"id is required"}
@@ -122,7 +122,7 @@ const EditUser = () => {
                         className={"form-control"}
                         type="text"
                         name="first_name"
-                        value={user.first_name}
+                        value={userEdit.first_name}
                         onChange={handleChange("first_name")}
                         errorDiv={hasError("first_name") ? "text-danger" : "d-none"}
                         errorMsg={"First Name is required"}
@@ -132,7 +132,7 @@ const EditUser = () => {
                         className={"form-control"}
                         type="text"
                         name="last_name"
-                        value={user.last_name}
+                        value={userEdit.last_name}
                         onChange={handleChange("last_name")}
                         errorDiv={hasError("last_name") ? "text-danger" : "d-none"}
                         errorMsg={"First Name is required"}
@@ -142,27 +142,17 @@ const EditUser = () => {
                         className={"form-control"}
                         type="email"
                         name="email"
-                        value={user.email}
+                        value={userEdit.email}
                         onChange={handleChange("email")}
                         errorDiv={hasError("email") ? "text-danger" : "d-none"}
                         errorMsg={"email is required"}
-                    />
-                    <Input
-                        title={"Password"}
-                        className={"form-control"}
-                        type="password"
-                        name="password"
-                        value={user.password}
-                        onChange={handleChange("password")}
-                        errorDiv={hasError("password") ? "text-danger" : "d-none"}
-                        errorMsg={"password is required"}
                     />
                     <Input
                         title={"Role"}
                         className={"form-control"}
                         type="role"
                         name="role"
-                        value={user.role}
+                        value={userEdit.role}
                         onChange={handleChange("role")}
                         errorDiv={hasError("role") ? "text-danger" : "d-none"}
                         errorMsg={"role is required"}
@@ -172,7 +162,7 @@ const EditUser = () => {
                         className={"form-control"}
                         type="text"
                         name="current_position"
-                        value={user.current_position}
+                        value={userEdit.current_position}
                         onChange={handleChange("current_position")}
                         errorDiv={hasError("current_position") ? "text-danger" : "d-none"}
                         errorMsg={"Current position is required"}
@@ -182,7 +172,7 @@ const EditUser = () => {
                         className={"form-control"}
                         type="number"
                         name="position_id"
-                        value={user.position_id}
+                        value={userEdit.position_id}
                         onChange={handleChange("position_id")}
                         errorDiv={hasError("position_id") ? "text-danger" : "d-none"}
                         errorMsg={"position_id is required"}
