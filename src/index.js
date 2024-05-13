@@ -86,9 +86,7 @@ const router = createBrowserRouter([
             {
                 path: "/user/:id",
                 element: <User/>,
-            }
-
-
+            },
         ]
     }
 ])

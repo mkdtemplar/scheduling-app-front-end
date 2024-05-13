@@ -4,134 +4,129 @@ import Alert from "./components/Alert";
 
 function App() {
 
-    const [jwtToken, setJwtToken] = useState("");
-    const [alertMessage, setAlertMessage] = useState("");
-    const [alertClassName, setAlertClassName] = useState("d-none");
-    const navigate = useNavigate();
+    const [jwtToken, setJwtToken] = useState("")
+    const [alertMessage, setAlertMessage] = useState("")
+    const [alertClassName, setAlertClassName] = useState("d-none")
 
-    const [tickInterval, setTickInterval] = useState();
+    const [tickInterval, setTickInterval] = useState()
+
+    const navigator = useNavigate()
 
     const logOut = () => {
-       const requestOptions = {
-           method: "GET",
-           credentials: 'include',
-       }
-       fetch(`/logout`, requestOptions)
-           .catch(error => {
-               console.log("error logging out", error)
-           })
-           .finally(() => {
-               setJwtToken("")
-               toogleRefresh(false)
-           })
-        navigate("/login")
+        const requestOptions = {
+            method: "GET",
+            credentials: "include",
+        }
+        fetch(`/logout`, requestOptions)
+            .catch(error =>{
+                console.log("error logging out ", error)
+            })
+            .finally(() => {
+                setJwtToken("")
+                toggleRefresh(false)
+            })
+        navigator("/login")
     }
 
-    const toogleRefresh = useCallback( (status) => {
+    const toggleRefresh = useCallback( (status) => {
         if (status) {
-            let i = setInterval(() => {
+
+            let i = setInterval(() =>{
                 const requestOptions = {
                     method: "GET",
-                    credentials: 'include',
+                    credentials: "include",
                 }
                 fetch(`/refresh`, requestOptions)
                     .then((response) => response.json())
                     .then((data) => {
                         if (data.access_token) {
                             setJwtToken(data.access_token)
-                            toogleRefresh(true)
                         }
                     })
                     .catch(error => {
-                        console.log("user not logged in", error.json())
+                        console.log("user not logged in")
                     })
-            }, 600000)
-            setTickInterval(i)
+            }, 600000);
+            setTickInterval(i);
         } else {
             setTickInterval(null)
             clearInterval(tickInterval)
         }
-    }, [tickInterval])
+    }, [tickInterval]);
 
     useEffect(() => {
         if (jwtToken === "") {
             const requestOptions = {
                 method: "GET",
-                credentials: 'include',
+                credentials: "include",
             }
             fetch(`/refresh`, requestOptions)
                 .then((response) => response.json())
                 .then((data) => {
                     if (data.access_token) {
                         setJwtToken(data.access_token)
-                        toogleRefresh(true)
+                        toggleRefresh(true)
                     }
                 })
                 .catch(error => {
                     console.log("user not logged in", error)
                 })
         }
-    }, [jwtToken, toogleRefresh]);
+    }, [jwtToken, toggleRefresh]);
 
-  return (
-    <div className="container">
-        <div className="row">
-            <div className="col">
-              <h1 className="mt-3 text-center">Scheduling application</h1>
+    return (
+        <div className="container">
+            <div className="row">
+                <div className="col">
+                    <h1 className="mt-3">Scheduling Application</h1>
+                </div>
+                <div className="col text-end">
+                    {
+                        jwtToken === ""
+                            ? <Link to="login"><span className="badge bg-success">Login</span></Link>
+                            : <a href="#!" onClick={logOut}><span className="badge bg-danger">Logout</span></a>
+                    }
+
+                </div>
+                <hr className="mb-3"/>
             </div>
-            <div className="col text-end mt-1">
-                {jwtToken === ""
-                    ? <Link to="/login" ><span className="btn btn-success">Login</span></Link>
-                    : <a href="#!" onClick={logOut}><span className="btn btn-danger">Logout</span></a>
-                }
+            <div className="row">
+                <div className="col-md-2">
+                    <nav>
+                        <div className="list-group">
+                            <Link to="/" className="list-group-item list-group-item-action">Home</Link>
+                            <Link to="/schedules" className="list-group-item list-group-item-action">Schedules</Link>
+                            <Link to="/schedule/:id" className="list-group-item list-group-item-action">Schedule</Link>
+                            <Link to="/annual-leave-request" className="list-group-item list-group-item-action">Annual Leave Request</Link>
+                            <Link to="/login" className="list-group-item list-group-item-action">Login</Link>
+                            <Link to="/positions" className="list-group-item list-group-item-action">Positions</Link>
+                            <Link to="/all-employees" className="list-group-item list-group-item-action">All Employees</Link>
+                            {jwtToken !== "" &&
+                                <>
+                                    <Link to="/admin/add-employees" className="list-group-item list-group-item-action">Add employees</Link>
+                                    <Link to="/admin/manage-position" className="list-group-item list-group-item-action">Manage positions</Link>
+                                    <Link to="/admin/mange-schedule" className="list-group-item list-group-item-action">Manage Schedule</Link>
+                                    <Link to="/admin/edit-employees" className="list-group-item list-group-item-action">Manage Employees</Link>
+                                </>
+                            }
 
-            </div>
-            <hr className="mb-3" />
-        </div>
-        <div className="row">
-            <div className="col-md-2">
-                <nav>
-                    <div className="list-group">
-                        <Link to="/" className="list-group-item list-group-item-action">Home</Link>
-                        <Link to="/schedules" className="list-group-item list-group-item-action">Schedules</Link>
-                        <Link to="/schedule/:id" className="list-group-item list-group-item-action">Schedule</Link>
-                        <Link to="/annual-leave-request" className="list-group-item list-group-item-action">Annual Leave Request</Link>
-                        <Link to="/login" className="list-group-item list-group-item-action">Login</Link>
-                        <Link to="/positions" className="list-group-item list-group-item-action">Positions</Link>
-                        <Link to="/all-employees" className="list-group-item list-group-item-action">All Employees</Link>
-                        {
-                            jwtToken !== "" &&
-                            <>
-                                <Link to="/admin/positions/0" className="list-group-item list-group-item-action">Edit/Add position</Link>
-                                <Link to="/admin/add-employees" className="list-group-item list-group-item-action">Add employees</Link>
-                                <Link to="/admin/manage-position" className="list-group-item list-group-item-action">Manage positions</Link>
-                                <Link to="/admin/mange-schedule" className="list-group-item list-group-item-action">Manage Schedule</Link>
-                                <Link to="/admin/edit-employees" className="list-group-item list-group-item-action">Manage Employees</Link>
-
-
-                            </>
-                        }
-
-                    </div>
-
-                </nav>
-            </div>
-            <div className="col-md-10">
-                <Alert
-                    message={alertMessage}
-                    className={alertClassName}
-                />
-                <Outlet context={{
-                    jwtToken,
-                    setJwtToken,
-                    setAlertMessage,
-                    setAlertClassName,
-                    toogleRefresh,
-                }}/>
+                        </div>
+                    </nav>
+                </div>
+                <div className="col-md-10">
+                    <Alert
+                        message={alertMessage}
+                        className={alertClassName}
+                    />
+                    <Outlet context={{
+                        jwtToken, setJwtToken,
+                        setAlertMessage, setAlertClassName,
+                        toggleRefresh,
+                    }}/>
+                </div>
             </div>
         </div>
-    </div>
-  );
+    )
 }
 
 export default App;
