@@ -132,7 +132,7 @@ const EditUser = () => {
                         if (data.error) {
                             console.log(data.error);
                         } else {
-                            nav("/all-employees");
+                            nav("/admin/edit-employees");
                         }
                     })
                     .catch(err => {console.log(err)});
