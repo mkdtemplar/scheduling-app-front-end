@@ -1,6 +1,7 @@
 import {useNavigate, useOutletContext, useParams} from "react-router-dom";
 import {useEffect, useState} from "react";
 import Input from "./form/input";
+import Swal from "sweetalert2";
 
 const EditUser = () => {
     let {id} = useParams();
@@ -74,7 +75,7 @@ const EditUser = () => {
 
         const headers = new Headers();
         headers.append("Content-Type", "application/json");
-        // headers.append("Authorization", "Bearer " + jwtToken);
+        headers.append("Authorization", "Bearer " + jwtToken);
 
         let method = "PATCH";
 
@@ -84,7 +85,7 @@ const EditUser = () => {
             body: JSON.stringify(requestBody),
             method: method,
             headers: headers,
-            // credentials: "include",
+            credentials: "include",
         }
 
         fetch(`/admin/edit-user/${userEdit.id}`, requestOptions)
@@ -99,6 +100,44 @@ const EditUser = () => {
             .catch(err => {
                 console.log(err);
             })
+    }
+
+    const confirmDelete = () => {
+        Swal.fire({
+            title: 'Delete movie?',
+            text: "You cannot undo this action!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                let headers = new Headers();
+                headers.append("Authorization", "Bearer " + jwtToken)
+
+                const requestOptions = {
+                    method: "DELETE",
+                    headers: headers,
+                }
+
+                fetch(`/admin/delete-user/${userEdit.id}`, requestOptions)
+                    .then((response) => {
+                        if (response.status !== 204) {
+                            setError("Invalid response code: " + response.status)
+                        }
+                        return response.json()
+                    })
+                    .then((data) => {
+                        if (data.error) {
+                            console.log(data.error);
+                        } else {
+                            nav("/all-employees");
+                        }
+                    })
+                    .catch(err => {console.log(err)});
+            }
+        })
     }
 
     return (
@@ -179,7 +218,8 @@ const EditUser = () => {
                     />
 
                     <hr/>
-                    <button className="btn btn-primary">Save</button>
+                    <button className="btn btn-primary">Update User</button>
+                    <button className="btn btn-danger ms-5 " onClick={confirmDelete}>Delete User</button>
                 </form>
 
             </div>

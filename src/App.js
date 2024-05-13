@@ -83,8 +83,8 @@ function App() {
                 <div className="col text-end">
                     {
                         jwtToken === ""
-                            ? <Link to="login"><span className="badge bg-success">Login</span></Link>
-                            : <a href="#!" onClick={logOut}><span className="badge bg-danger">Logout</span></a>
+                            ? <Link to="login"><span className="btn btn-info mt-1">Login</span></Link>
+                            : <a href="#!" onClick={logOut}><span className="btn btn-danger mt-1">Logout</span></a>
                     }
 
                 </div>
