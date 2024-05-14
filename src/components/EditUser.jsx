@@ -122,12 +122,7 @@ const EditUser = () => {
                 }
 
                 fetch(`/admin/delete-user/${userEdit.id}`, requestOptions)
-                    .then((response) => {
-                        if (response.status !== 204) {
-                            setError("Invalid response code: " + response.status)
-                        }
-                        return response.json()
-                    })
+                    .then((response) => response.json())
                     .then((data) => {
                         if (data.error) {
                             console.log(data.error);
@@ -206,6 +201,7 @@ const EditUser = () => {
                         errorDiv={hasError("current_position") ? "text-danger" : "d-none"}
                         errorMsg={"Current position is required"}
                     />
+
                     <Input
                         title={"Position ID"}
                         className={"form-control"}
@@ -219,7 +215,7 @@ const EditUser = () => {
 
                     <hr/>
                     <button className="btn btn-primary">Update User</button>
-                    <button className="btn btn-danger ms-5 " onClick={confirmDelete}>Delete User</button>
+                    <a href="#!" className="btn btn-danger ms-5 " onClick={confirmDelete}>Delete User</a>
                 </form>
 
             </div>
