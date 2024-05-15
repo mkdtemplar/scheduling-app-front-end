@@ -22,7 +22,7 @@ const User = () => {
             credentials: "include"
         }
 
-        fetch(`/admin/user/${id}`, requestOptions)
+        fetch(`/user/${id}`, requestOptions)
             .then((res) => res.json())
             .then((data) => {
                 setUsers(data)

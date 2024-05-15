@@ -83,7 +83,7 @@ const EditUser = () => {
             {field: userEdit.password, name: "password"},
             {field: userEdit.role, name: "role"},
             {field: userEdit.current_position, name: "current_position"},
-            {field: userEdit.id, name: "position_id"},
+            {field: userEdit.position_id, name: "position_id"},
 
         ]
 
@@ -113,6 +113,9 @@ const EditUser = () => {
             headers: headers,
             credentials: "include",
         }
+
+        requestBody.id = parseInt(userEdit.id)
+        requestBody.position_id = parseInt(userEdit.position_id)
 
         fetch(`/admin/edit-user/${userEdit.id}`, requestOptions)
             .then((response) => response.json())
@@ -160,93 +163,97 @@ const EditUser = () => {
             }
         })
     }
+    if (error !== null) {
+        return <div>Error: {error.message}</div>
+    } else {
 
-    return (
-        <>
-            <div>
-                <h2>Edit Employee</h2>
-                <hr/>
-                <form onSubmit={handleSubmitUpdateUser}>
-                    <Input
-                        title={"Employee ID"}
-                        className={"form-control"}
-                        type="number"
-                        name="id"
-                        value={userEdit.id}
-                        onChange={handleChange("id")}
-                        errorDiv={hasError("id") ? "text-danger" : "d-none"}
-                        errorMsg={"id is required"}
-                    />
-                    <Input
-                        title={"First Name"}
-                        className={"form-control"}
-                        type="text"
-                        name="first_name"
-                        value={userEdit.first_name}
-                        onChange={handleChange("first_name")}
-                        errorDiv={hasError("first_name") ? "text-danger" : "d-none"}
-                        errorMsg={"First Name is required"}
-                    />
-                    <Input
-                        title={"Last Name"}
-                        className={"form-control"}
-                        type="text"
-                        name="last_name"
-                        value={userEdit.last_name}
-                        onChange={handleChange("last_name")}
-                        errorDiv={hasError("last_name") ? "text-danger" : "d-none"}
-                        errorMsg={"First Name is required"}
-                    />
-                    <Input
-                        title={"Email"}
-                        className={"form-control"}
-                        type="email"
-                        name="email"
-                        value={userEdit.email}
-                        onChange={handleChange("email")}
-                        errorDiv={hasError("email") ? "text-danger" : "d-none"}
-                        errorMsg={"email is required"}
-                    />
-                    <Input
-                        title={"Role"}
-                        className={"form-control"}
-                        type="role"
-                        name="role"
-                        value={userEdit.role}
-                        onChange={handleChange("role")}
-                        errorDiv={hasError("role") ? "text-danger" : "d-none"}
-                        errorMsg={"role is required"}
-                    />
-                    <Input
-                        title={"Current position"}
-                        className={"form-control"}
-                        type="text"
-                        name="current_position"
-                        value={userEdit.current_position}
-                        onChange={handleChange("current_position")}
-                        errorDiv={hasError("current_position") ? "text-danger" : "d-none"}
-                        errorMsg={"Current position is required"}
-                    />
-
-                    <Input
-                        title={"Position ID"}
-                        className={"form-control"}
-                        type="number"
-                        name="position_id"
-                        value={userEdit.position_id}
-                        onChange={handleChange("position_id")}
-                        errorDiv={hasError("position_id") ? "text-danger" : "d-none"}
-                        errorMsg={"position_id is required"}
-                    />
-
+        return (
+            <>
+                <div>
+                    <h2>Edit Employee</h2>
                     <hr/>
-                    <button className="btn btn-primary">Update User</button>
-                    <a href="#!" className="btn btn-danger ms-5 " onClick={confirmDelete}>Delete User</a>
-                </form>
+                    <form onSubmit={handleSubmitUpdateUser}>
+                        <Input
+                            title={"Employee ID"}
+                            className={"form-control"}
+                            type="number"
+                            name="id"
+                            value={userEdit.id}
+                            onChange={handleChange("id")}
+                            errorDiv={hasError("id") ? "text-danger" : "d-none"}
+                            errorMsg={"id is required"}
+                        />
+                        <Input
+                            title={"First Name"}
+                            className={"form-control"}
+                            type="text"
+                            name="first_name"
+                            value={userEdit.first_name}
+                            onChange={handleChange("first_name")}
+                            errorDiv={hasError("first_name") ? "text-danger" : "d-none"}
+                            errorMsg={"First Name is required"}
+                        />
+                        <Input
+                            title={"Last Name"}
+                            className={"form-control"}
+                            type="text"
+                            name="last_name"
+                            value={userEdit.last_name}
+                            onChange={handleChange("last_name")}
+                            errorDiv={hasError("last_name") ? "text-danger" : "d-none"}
+                            errorMsg={"First Name is required"}
+                        />
+                        <Input
+                            title={"Email"}
+                            className={"form-control"}
+                            type="email"
+                            name="email"
+                            value={userEdit.email}
+                            onChange={handleChange("email")}
+                            errorDiv={hasError("email") ? "text-danger" : "d-none"}
+                            errorMsg={"email is required"}
+                        />
+                        <Input
+                            title={"Role"}
+                            className={"form-control"}
+                            type="role"
+                            name="role"
+                            value={userEdit.role}
+                            onChange={handleChange("role")}
+                            errorDiv={hasError("role") ? "text-danger" : "d-none"}
+                            errorMsg={"role is required"}
+                        />
+                        <Input
+                            title={"Current position"}
+                            className={"form-control"}
+                            type="text"
+                            name="current_position"
+                            value={userEdit.current_position}
+                            onChange={handleChange("current_position")}
+                            errorDiv={hasError("current_position") ? "text-danger" : "d-none"}
+                            errorMsg={"Current position is required"}
+                        />
 
-            </div>
-        </>
-    )
+                        <Input
+                            title={"Position ID"}
+                            className={"form-control"}
+                            type="number"
+                            name="position_id"
+                            value={userEdit.position_id}
+                            onChange={handleChange("position_id")}
+                            errorDiv={hasError("position_id") ? "text-danger" : "d-none"}
+                            errorMsg={"position_id is required"}
+                        />
+
+                        <hr/>
+                        <button className="btn btn-primary">Update User</button>
+                        <a href="#!" className="btn btn-danger ms-5 " onClick={confirmDelete}>Delete User</a>
+                    </form>
+
+                </div>
+            </>
+        )
+    }
 }
 
 export default EditUser

@@ -22,7 +22,6 @@ const AddEmployee = () => {
         current_position: "",
         role: "",
         position_id: "",
-        shifts: []
     })
 
 
@@ -36,26 +35,29 @@ const AddEmployee = () => {
         header.append("Authorization", "Bearer " + jwtToken);
 
         const requestOptions = {
-            method: "PUT",
+            method: "GET",
             headers: header,
-            // credentials: 'include',
         }
 
-        fetch(`/admin/add-user`, requestOptions)
-            .then((response) => response.json())
+        fetch(`/positions`, requestOptions)
+            .then((response) => {
+                if (response.status !== 200) {
+                    setError("Invalid response code: " + response.status)
+                }
+                return response.json();
+            })
             .then((data) => {
 
-                setUser(u =>({
-                    ...u,
-                    id: parseInt(data.id),
-                    first_name: data.first_name,
-                    last_name: data.last_name,
-                    email: data.email,
-                    password: data.password,
-                    current_position: data.current_position,
-                    role: data.role,
-                    position_id: parseInt(data.position_id),
-                }))
+                setUser({
+                    id: "",
+                    first_name: "",
+                    last_name: "",
+                    email: "",
+                    password: "",
+                    current_position: "",
+                    role: "",
+                    position_id: "",
+                })
             })
             .catch(err => console.log(err));
 
@@ -74,7 +76,7 @@ const AddEmployee = () => {
     const handleSubmitUser = (event) => {
         event.preventDefault();
 
-        // let errors = []
+        let errors = []
 
         let required = [
             {field: user.id, name: "id"},
@@ -114,6 +116,8 @@ const AddEmployee = () => {
             headers: headers,
             credentials: "include",
         }
+        requestBody.id = parseInt(user.id)
+        requestBody.position_id = parseInt(user.current_position)
 
         fetch(`/admin/add-user`, requestOptions)
             .then((response) => response.json())
@@ -128,13 +132,15 @@ const AddEmployee = () => {
                 console.log(err);
             })
     }
-
+    if (error !== null) {
+        return <div>Error: {error.message}</div>
+    } else {
         return (
             <>
                 <div>
                     <h2>Add Employee</h2>
                     <hr/>
-                    <pre>{JSON.stringify(user, null, 3)}</pre>
+                    {/*<pre>{JSON.stringify(user, null, 3)}</pre>*/}
                     <form onSubmit={handleSubmitUser}>
                         <Input
                             title={"Employee ID"}
@@ -143,7 +149,7 @@ const AddEmployee = () => {
                             name="id"
                             value={user.id}
                             onChange={handleChange("id")}
-                            required={"id"}
+                            // required={"id"}
                             errorDiv={hasError("id") ? "text-danger" : "d-none"}
                             errorMsg={"id is required"}
                         />
@@ -232,6 +238,7 @@ const AddEmployee = () => {
                 </div>
             </>
         )
+    }
 }
 
 export default AddEmployee;
