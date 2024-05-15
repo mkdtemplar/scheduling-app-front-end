@@ -73,6 +73,32 @@ const EditUser = () => {
     const handleSubmitUpdateUser = (event) => {
         event.preventDefault();
 
+        let errors = []
+
+        let required = [
+            {field: userEdit.id, name: "id"},
+            {field: userEdit.first_name, name: "first_name"},
+            {field: userEdit.last_name, name: "last_name"},
+            {field: userEdit.email, name: "email"},
+            {field: userEdit.password, name: "password"},
+            {field: userEdit.role, name: "role"},
+            {field: userEdit.current_position, name: "current_position"},
+            {field: userEdit.id, name: "position_id"},
+
+        ]
+
+        required.forEach(function (obj) {
+            if (obj.field === "") {
+                errors.push(obj.name);
+            }
+        })
+
+        setErrors(errors);
+
+        if (errors.length > 0) {
+            return false;
+        }
+
         const headers = new Headers();
         headers.append("Content-Type", "application/json");
         headers.append("Authorization", "Bearer " + jwtToken);

@@ -8,7 +8,7 @@ const Input = forwardRef((props, ref) => {
             </label>
             <input type={props.type} className={props.className} id={props.name} ref={ref} name={props.name}
                    placeholder={props.placeholder} onChange={props.onChange} autoComplete={props.autoComplete}
-                   value={props.value}/>
+                   value={props.value} required={props.name}/>
             <div className={props.errorDiv}>
                 {props.errorMsg}
             </div>
