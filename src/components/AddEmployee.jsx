@@ -1,6 +1,7 @@
 import {useNavigate, useOutletContext} from "react-router-dom";
 import {useEffect, useState} from "react";
 import Input from "./form/input";
+import Select from "./form/Select";
 
 const AddEmployee = () => {
     const {jwtToken} = useOutletContext()
@@ -19,11 +20,14 @@ const AddEmployee = () => {
         last_name: "",
         email: "",
         password: "",
-        current_position: "",
+        position_name: "",
         role: "",
         position_id: "",
     })
 
+    const [positionForUser, setPositionForUser] = useState([])
+
+    let positionOptions = []
 
     useEffect(() => {
         if (jwtToken === "") {
@@ -39,7 +43,7 @@ const AddEmployee = () => {
             headers: header,
         }
 
-        fetch(`/positions`, requestOptions)
+        fetch(`/position-for-user`, requestOptions)
             .then((response) => {
                 if (response.status !== 200) {
                     setError("Invalid response code: " + response.status)
@@ -47,6 +51,7 @@ const AddEmployee = () => {
                 return response.json();
             })
             .then((data) => {
+                setPositionForUser(data)
 
                 setUser({
                     id: "",
@@ -54,10 +59,11 @@ const AddEmployee = () => {
                     last_name: "",
                     email: "",
                     password: "",
-                    current_position: "",
+                    position_name: "",
                     role: "",
                     position_id: "",
                 })
+
             })
             .catch(err => console.log(err));
 
@@ -85,7 +91,7 @@ const AddEmployee = () => {
             {field: user.email, name: "email"},
             {field: user.password, name: "password"},
             {field: user.role, name: "role"},
-            {field: user.current_position, name: "current_position"},
+            {field: user.position_name, name: "position_name"},
             {field: user.position_id, name: "position_id"},
 
         ]
@@ -132,6 +138,13 @@ const AddEmployee = () => {
                 console.log(err);
             })
     }
+
+    positionForUser.map((pos) =>  (
+        positionOptions.push({id : pos.position_name, value: pos.position_name})
+    ))
+
+    console.log("position options: ", positionOptions)
+
     if (error !== null) {
         return <div>Error: {error.message}</div>
     } else {
@@ -140,7 +153,7 @@ const AddEmployee = () => {
                 <div>
                     <h2>Add Employee</h2>
                     <hr/>
-                    {/*<pre>{JSON.stringify(user, null, 3)}</pre>*/}
+                    <pre>{JSON.stringify(user, null, 3)}</pre>
                     <form onSubmit={handleSubmitUser}>
                         <Input
                             title={"Employee ID"}
@@ -208,17 +221,29 @@ const AddEmployee = () => {
                             errorDiv={hasError("role") ? "text-danger" : "d-none"}
                             errorMsg={"role is required"}
                         />
-                        <Input
-                            title={"Current position"}
-                            className={"form-control"}
-                            type="text"
-                            name="current_position"
-                            required={"current_position"}
-                            value={user.current_position}
-                            onChange={handleChange("current_position")}
-                            errorDiv={hasError("current_position") ? "text-danger" : "d-none"}
-                            errorMsg={"Current position is required"}
+                        {/*<Input*/}
+                        {/*    title={"Current position"}*/}
+                        {/*    className={"form-control"}*/}
+                        {/*    type="text"*/}
+                        {/*    name="current_position"*/}
+                        {/*    required={"current_position"}*/}
+                        {/*    value={user.current_position}*/}
+                        {/*    onChange={handleChange("current_position")}*/}
+                        {/*    errorDiv={hasError("current_position") ? "text-danger" : "d-none"}*/}
+                        {/*    errorMsg={"Current position is required"}*/}
+                        {/*/>*/}
+
+                        <Select
+                            title={"Position"}
+                            name={"position_name"}
+                            options={positionOptions}
+                            value={positionForUser.position_name}
+                            onChange={handleChange("position_name")}
+                            placeHolder={"Choose..."}
+                            errorMsg={"Please choose position for user"}
+                            errorDiv={hasError("position_name") ? "text-danger" : "d-none"}
                         />
+
                         <Input
                             title={"Position ID"}
                             className={"form-control"}

@@ -64,9 +64,9 @@ const ManageEmplyees = () => {
                             }
                         </td>
                         <td>
-                            {m.current_position !== undefined ?
+                            {m.position_name !== undefined ?
 
-                                <tr>{m.current_position}</tr>
+                                <tr>{m.position_name}</tr>
 
                                 : <td></td>
                             }

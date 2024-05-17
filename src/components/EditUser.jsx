@@ -21,7 +21,7 @@ const EditUser = () => {
         last_name: "",
         email: "",
         password: "",
-        current_position: "",
+        position_name: "",
         role: "",
         position_id: "",
         shifts: [],
@@ -82,7 +82,7 @@ const EditUser = () => {
             {field: userEdit.email, name: "email"},
             {field: userEdit.password, name: "password"},
             {field: userEdit.role, name: "role"},
-            {field: userEdit.current_position, name: "current_position"},
+            {field: userEdit.position_name, name: "position_name"},
             {field: userEdit.position_id, name: "position_id"},
 
         ]
@@ -227,8 +227,8 @@ const EditUser = () => {
                             title={"Current position"}
                             className={"form-control"}
                             type="text"
-                            name="current_position"
-                            value={userEdit.current_position}
+                            name="position_name"
+                            value={userEdit.position_name}
                             onChange={handleChange("current_position")}
                             errorDiv={hasError("current_position") ? "text-danger" : "d-none"}
                             errorMsg={"Current position is required"}

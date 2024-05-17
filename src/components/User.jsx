@@ -70,9 +70,9 @@ const User = () => {
                             }
                         </td>
                         <td>
-                            {users.current_position !== undefined ?
+                            {users.position_name !== undefined ?
 
-                                <tr>{users.current_position}</tr>
+                                <tr>{users.position_name}</tr>
 
                                 : <td></td>
                             }

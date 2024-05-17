@@ -117,10 +117,10 @@ const EditPosition = () => {
         console.log("checked is: ", event.target.checked)
         console.log("position is: ", position)
 
-        let tempApp = []
-        tempApp = position.users
-        console.log(tempApp)
-        tempApp[pos].checked = !tempApp[pos].checked
+        let tempArr = []
+        tempArr = position.users
+        console.log(tempArr)
+        tempArr[pos].checked = !tempArr[pos].checked
 
         let tmpIDs = position.users_array
 
