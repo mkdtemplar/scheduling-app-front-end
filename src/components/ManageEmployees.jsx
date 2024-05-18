@@ -29,11 +29,9 @@ const ManageEmplyees = () => {
             <table className="table table-bordered table-hover">
                 <thead>
                 <tr>
-                    <th>First Name</th>
-                    <th>Last Name</th>
+                    <th>Name And Surname</th>
                     <th>Email</th>
                     <th> Current Position</th>
-                    <th> Role</th>
                     <th>Shifts</th>
                 </tr>
                 </thead>
@@ -42,17 +40,8 @@ const ManageEmplyees = () => {
                     <tr key={m.id}>
                         <td>
                             <Link to={`/admin/edit-employees/${m.id}`}>
-                                {m.first_name}
+                                {m.name_surname}
                             </Link>
-                        </td>
-
-                        <td>
-                            {m.last_name !== undefined ?
-
-                                <tr>{m.last_name}</tr>
-
-                                : <td></td>
-                            }
                         </td>
 
                         <td>
@@ -68,12 +57,6 @@ const ManageEmplyees = () => {
 
                                 <tr>{m.position_name}</tr>
 
-                                : <td></td>
-                            }
-                        </td>
-                        <td>
-                            {m.role !== undefined ?
-                                <tr>{m.role}</tr>
                                 : <td></td>
                             }
                         </td>

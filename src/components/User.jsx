@@ -37,11 +37,9 @@ const User = () => {
             <table className="table table-bordered table-hover">
                 <thead>
                 <tr>
-                    <th>First Name</th>
-                    <th>Last Name</th>
+                    <th>Name And Surname</th>
                     <th>Email</th>
                     <th> Current Position</th>
-                    <th> Role</th>
                     <th>Shifts</th>
                 </tr>
                 </thead>
@@ -49,13 +47,9 @@ const User = () => {
 
                     <tr key={users.id}>
                         <td>
-                            {users.first_name}
-                        </td>
+                            {users.name_surname !== undefined ?
 
-                        <td>
-                            {users.last_name !== undefined ?
-
-                                <tr>{users.last_name}</tr>
+                                <tr>{users.name_surname}</tr>
 
                                 : <td></td>
                             }
@@ -74,12 +68,6 @@ const User = () => {
 
                                 <tr>{users.position_name}</tr>
 
-                                : <td></td>
-                            }
-                        </td>
-                        <td>
-                            {users.role !== undefined ?
-                                <tr>{users.role}</tr>
                                 : <td></td>
                             }
                         </td>

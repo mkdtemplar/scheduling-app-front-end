@@ -16,18 +16,18 @@ const AddEmployee = () => {
 
     const [user, setUser] = useState({
         id: "",
-        first_name: "",
-        last_name: "",
+        name_surname: "",
         email: "",
         password: "",
         position_name: "",
-        role: "",
         position_id: "",
     })
 
     const [positionForUser, setPositionForUser] = useState([])
 
     let positionOptions = []
+
+    let pos_id = ""
 
     useEffect(() => {
         if (jwtToken === "") {
@@ -55,12 +55,10 @@ const AddEmployee = () => {
 
                 setUser({
                     id: "",
-                    first_name: "",
-                    last_name: "",
+                    name_surname: "",
                     email: "",
                     password: "",
                     position_name: "",
-                    role: "",
                     position_id: "",
                 })
 
@@ -86,11 +84,9 @@ const AddEmployee = () => {
 
         let required = [
             {field: user.id, name: "id"},
-            {field: user.first_name, name: "first_name"},
-            {field: user.last_name, name: "last_name"},
+            {field: user.name_surname, name: "name_surname"},
             {field: user.email, name: "email"},
             {field: user.password, name: "password"},
-            {field: user.role, name: "role"},
             {field: user.position_name, name: "position_name"},
             {field: user.position_id, name: "position_id"},
 
@@ -123,7 +119,7 @@ const AddEmployee = () => {
             credentials: "include",
         }
         requestBody.id = parseInt(user.id)
-        requestBody.position_id = parseInt(user.current_position)
+        requestBody.position_id = parseInt(user.position_id)
 
         fetch(`/admin/add-user`, requestOptions)
             .then((response) => response.json())
@@ -154,6 +150,8 @@ const AddEmployee = () => {
                     <h2>Add Employee</h2>
                     <hr/>
                     <pre>{JSON.stringify(user, null, 3)}</pre>
+                    <hr/>
+                    <pre>{JSON.stringify(positionForUser, null, 3)}</pre>
                     <form onSubmit={handleSubmitUser}>
                         <Input
                             title={"Employee ID"}
@@ -162,30 +160,18 @@ const AddEmployee = () => {
                             name="id"
                             value={user.id}
                             onChange={handleChange("id")}
-                            // required={"id"}
                             errorDiv={hasError("id") ? "text-danger" : "d-none"}
                             errorMsg={"id is required"}
                         />
                         <Input
-                            title={"First Name"}
+                            title={"Name And Surname"}
                             className={"form-control"}
                             type="text"
-                            name="first_name"
-                            required={"first_name"}
-                            value={user.first_name}
-                            onChange={handleChange("first_name")}
-                            errorDiv={hasError("first_name") ? "text-danger" : "d-none"}
-                            errorMsg={"First Name is required"}
-                        />
-                        <Input
-                            title={"Last Name"}
-                            className={"form-control"}
-                            type="text"
-                            name="last_name"
-                            required={"last_name"}
-                            value={user.last_name}
-                            onChange={handleChange("last_name")}
-                            errorDiv={hasError("last_name") ? "text-danger" : "d-none"}
+                            name="name_surname"
+                            required={"name_surname"}
+                            value={user.name_surname}
+                            onChange={handleChange("name_surname")}
+                            errorDiv={hasError("name_surname") ? "text-danger" : "d-none"}
                             errorMsg={"First Name is required"}
                         />
                         <Input
@@ -210,29 +196,6 @@ const AddEmployee = () => {
                             errorDiv={hasError("password") ? "text-danger" : "d-none"}
                             errorMsg={"password is required"}
                         />
-                        <Input
-                            title={"Role"}
-                            className={"form-control"}
-                            type="role"
-                            name="role"
-                            required={"role"}
-                            value={user.role}
-                            onChange={handleChange("role")}
-                            errorDiv={hasError("role") ? "text-danger" : "d-none"}
-                            errorMsg={"role is required"}
-                        />
-                        {/*<Input*/}
-                        {/*    title={"Current position"}*/}
-                        {/*    className={"form-control"}*/}
-                        {/*    type="text"*/}
-                        {/*    name="current_position"*/}
-                        {/*    required={"current_position"}*/}
-                        {/*    value={user.current_position}*/}
-                        {/*    onChange={handleChange("current_position")}*/}
-                        {/*    errorDiv={hasError("current_position") ? "text-danger" : "d-none"}*/}
-                        {/*    errorMsg={"Current position is required"}*/}
-                        {/*/>*/}
-
                         <Select
                             title={"Position"}
                             name={"position_name"}
@@ -250,7 +213,8 @@ const AddEmployee = () => {
                             type="number"
                             name="position_id"
                             required={"position_id"}
-                            value={user.position_id}
+                            value={positionForUser.id}
+                            placeholder={positionForUser.id}
                             onChange={handleChange("position_id")}
                             errorDiv={hasError("position_id") ? "text-danger" : "d-none"}
                             errorMsg={"position_id is required"}

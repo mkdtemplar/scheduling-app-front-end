@@ -22,7 +22,6 @@ const EditUser = () => {
         email: "",
         password: "",
         position_name: "",
-        role: "",
         position_id: "",
         shifts: [],
         user_position_array: []
@@ -81,7 +80,6 @@ const EditUser = () => {
             {field: userEdit.last_name, name: "last_name"},
             {field: userEdit.email, name: "email"},
             {field: userEdit.password, name: "password"},
-            {field: userEdit.role, name: "role"},
             {field: userEdit.position_name, name: "position_name"},
             {field: userEdit.position_id, name: "position_id"},
 
@@ -184,23 +182,14 @@ const EditUser = () => {
                             errorMsg={"id is required"}
                         />
                         <Input
-                            title={"First Name"}
+                            title={"Name And Surname"}
                             className={"form-control"}
                             type="text"
-                            name="first_name"
-                            value={userEdit.first_name}
-                            onChange={handleChange("first_name")}
-                            errorDiv={hasError("first_name") ? "text-danger" : "d-none"}
-                            errorMsg={"First Name is required"}
-                        />
-                        <Input
-                            title={"Last Name"}
-                            className={"form-control"}
-                            type="text"
-                            name="last_name"
-                            value={userEdit.last_name}
-                            onChange={handleChange("last_name")}
-                            errorDiv={hasError("last_name") ? "text-danger" : "d-none"}
+                            name="name_surname"
+                            required={"name_surname"}
+                            value={userEdit.name_surname}
+                            onChange={handleChange("name_surname")}
+                            errorDiv={hasError("name_surname") ? "text-danger" : "d-none"}
                             errorMsg={"First Name is required"}
                         />
                         <Input
