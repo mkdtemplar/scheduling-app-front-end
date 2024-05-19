@@ -90,7 +90,7 @@ const AddAdmin = () => {
                 if (data.error) {
                     console.log(data.error);
                 } else {
-                    nav("/all-employees");
+                    nav("/admin/all-admins");
                 }
             })
             .catch(err => {

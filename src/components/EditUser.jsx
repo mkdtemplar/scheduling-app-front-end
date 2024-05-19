@@ -131,7 +131,7 @@ const EditUser = () => {
 
     const confirmDelete = () => {
         Swal.fire({
-            title: 'Delete movie?',
+            title: 'Delete user?',
             text: "You cannot undo this action!",
             icon: 'warning',
             showCancelButton: true,

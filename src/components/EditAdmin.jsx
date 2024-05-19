@@ -120,7 +120,7 @@ const EditAdmin = () => {
 
     const confirmDelete = () => {
         Swal.fire({
-            title: 'Delete movie?',
+            title: 'Delete admin?',
             text: "You cannot undo this action!",
             icon: 'warning',
             showCancelButton: true,
@@ -143,7 +143,7 @@ const EditAdmin = () => {
                         if (data.error) {
                             console.log(data.error);
                         } else {
-                            nav("/admin/edit-admin");
+                            nav("/admin/all-admins");
                         }
                     })
                     .catch(err => {console.log(err)});
@@ -192,9 +192,6 @@ const EditAdmin = () => {
                             errorDiv={hasError("password") ? "text-danger" : "d-none"}
                             errorMsg={"password is required"}
                         />
-
-
-
 
                         <hr/>
                         <button className="btn btn-primary">Update Admin</button>
