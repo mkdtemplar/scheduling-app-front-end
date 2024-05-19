@@ -20,6 +20,10 @@ import EditUser from "./components/EditUser";
 import User from "./components/User";
 import ManageEmplyees from "./components/ManageEmployees";
 import AddAdmin from "./components/AddAdmin";
+import ManageAdmins from "./components/ManageAdmins";
+import EditAdmin from "./components/EditAdmin";
+import Admin from "./components/Admin";
+import AllAdmins from "./components/AllAdmins";
 
 const router = createBrowserRouter([
     {
@@ -91,7 +95,23 @@ const router = createBrowserRouter([
             {
                 path: "/admin/add-admin",
                 element: <AddAdmin/>,
-            }
+            },
+            {
+                path: "/admin/edit-admin",
+                element: <ManageAdmins/>,
+            },
+            {
+                path: "/admin/edit-admin/:id",
+                element: <EditAdmin/>,
+            },
+            {
+                path: "/admin/:id",
+                element: <Admin/>,
+            },
+            {
+                path: "/admin/all-admins",
+                element: <AllAdmins/>,
+            },
         ]
     }
 ])

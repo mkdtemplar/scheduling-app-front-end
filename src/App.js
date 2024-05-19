@@ -63,7 +63,7 @@ function App() {
             fetch(`/refresh`, requestOptions)
                 .then((response) => response.json())
                 .then((data) => {
-                    if (data.access_token && data.user_name) {
+                    if (data.access_token) {
                         setJwtToken(data.access_token)
                         toggleRefresh(true)
                     }
@@ -108,6 +108,7 @@ function App() {
                                     <Link to="/admin/mange-schedule" className="list-group-item list-group-item-action">Manage Schedule</Link>
                                     <Link to="/admin/edit-employees" className="list-group-item list-group-item-action">Manage Employees</Link>
                                     <Link to="/admin/add-admin" className="list-group-item list-group-item-action">Add Admin</Link>
+                                    <Link to="/admin/edit-admin" className="list-group-item list-group-item-action">Manage Admin</Link>
                                 </>
                             }
 
