@@ -40,7 +40,6 @@ const User = () => {
                     <th>Name And Surname</th>
                     <th>Email</th>
                     <th> Current Position</th>
-                    <th>Shifts</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -68,14 +67,6 @@ const User = () => {
 
                                 <tr>{users.position_name}</tr>
 
-                                : <td></td>
-                            }
-                        </td>
-                        <td>
-                            {users.users !== undefined ?
-                                users.users?.map((user) => (
-                                    <tr>{user.shifts}</tr>
-                                ))
                                 : <td></td>
                             }
                         </td>

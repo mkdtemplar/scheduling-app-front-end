@@ -89,7 +89,6 @@ const AddEmployee = () => {
             {field: user.password, name: "password"},
             {field: user.position_name, name: "position_name"},
             {field: user.position_id, name: "position_id"},
-
         ]
 
         required.forEach(function (obj) {
@@ -118,8 +117,8 @@ const AddEmployee = () => {
             headers: headers,
             credentials: "include",
         }
-        requestBody.id = parseInt(user.id)
-        requestBody.position_id = parseInt(user.position_id)
+        // requestBody.id = parseInt(user.id)
+        // requestBody.position_id = parseInt(user.position_id)
 
         fetch(`/admin/add-user`, requestOptions)
             .then((response) => response.json())
@@ -138,8 +137,6 @@ const AddEmployee = () => {
     positionForUser.map((pos) =>  (
         positionOptions.push({id : pos.position_name, value: pos.position_name})
     ))
-
-    console.log("position options: ", positionOptions)
 
     if (error !== null) {
         return <div>Error: {error.message}</div>

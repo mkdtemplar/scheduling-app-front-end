@@ -112,8 +112,8 @@ const EditUser = () => {
             credentials: "include",
         }
 
-        requestBody.id = parseInt(userEdit.id)
-        requestBody.position_id = parseInt(userEdit.position_id)
+        // requestBody.id = parseInt(userEdit.id)
+        // requestBody.position_id = parseInt(userEdit.position_id)
 
         fetch(`/admin/edit-user/${userEdit.id}`, requestOptions)
             .then((response) => response.json())
@@ -202,25 +202,16 @@ const EditUser = () => {
                             errorDiv={hasError("email") ? "text-danger" : "d-none"}
                             errorMsg={"email is required"}
                         />
-                        <Input
-                            title={"Role"}
-                            className={"form-control"}
-                            type="role"
-                            name="role"
-                            value={userEdit.role}
-                            onChange={handleChange("role")}
-                            errorDiv={hasError("role") ? "text-danger" : "d-none"}
-                            errorMsg={"role is required"}
-                        />
+
                         <Input
                             title={"Current position"}
                             className={"form-control"}
                             type="text"
                             name="position_name"
                             value={userEdit.position_name}
-                            onChange={handleChange("current_position")}
-                            errorDiv={hasError("current_position") ? "text-danger" : "d-none"}
-                            errorMsg={"Current position is required"}
+                            onChange={handleChange("position_name")}
+                            errorDiv={hasError("position_name") ? "text-danger" : "d-none"}
+                            errorMsg={"position name is required"}
                         />
 
                         <Input

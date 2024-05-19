@@ -19,6 +19,7 @@ import AllUsers from "./components/AllUsers";
 import EditUser from "./components/EditUser";
 import User from "./components/User";
 import ManageEmplyees from "./components/ManageEmployees";
+import AddAdmin from "./components/AddAdmin";
 
 const router = createBrowserRouter([
     {
@@ -87,6 +88,10 @@ const router = createBrowserRouter([
                 path: "/user/:id",
                 element: <User/>,
             },
+            {
+                path: "/admin/add-admin",
+                element: <AddAdmin/>,
+            }
         ]
     }
 ])

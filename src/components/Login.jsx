@@ -4,7 +4,7 @@ import {useNavigate, useOutletContext} from "react-router-dom";
 
 const Login = () => {
 
-    const [email, setEmail] = useState('');
+    const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
 
     const { setJwtToken } = useOutletContext();
@@ -16,7 +16,7 @@ const Login = () => {
     const handleSubmit = (event) => {
         event.preventDefault();
         let payload = {
-            user_name: email,
+            user_name: username,
             password: password,
         }
 
@@ -55,9 +55,9 @@ const Login = () => {
                 <h2>Login</h2>
                 <hr/>
                 <form onSubmit={handleSubmit}>
-                    <Input title="Email Address" type="email" className="form-control" name="email"
-                           autoComplete="email-new"
-                           onChange={(event) => setEmail(event.target.value)}
+                    <Input title="Username" type="email" className="form-control" name="user_name"
+                           autoComplete="user_name-new"
+                           onChange={(event) => setUsername(event.target.value)}
                     />
                     <Input title="Password" type="password" className="form-control" name="password"
                            autoComplete="password-new"
