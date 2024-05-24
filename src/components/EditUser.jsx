@@ -15,6 +15,8 @@ const EditUser = () => {
         return errors.indexOf(key) !== -1
     }
 
+
+
     const [userEdit, setUser] = useState({
         id: "",
         first_name: "",
@@ -22,7 +24,7 @@ const EditUser = () => {
         email: "",
         password: "",
         position_name: "",
-        position_id: "",
+        user_id: "",
         shifts: [],
         user_position_array: []
     })
@@ -81,7 +83,7 @@ const EditUser = () => {
             {field: userEdit.email, name: "email"},
             {field: userEdit.password, name: "password"},
             {field: userEdit.position_name, name: "position_name"},
-            {field: userEdit.position_id, name: "position_id"},
+            {field: userEdit.user_id, name: "user_id"},
 
         ]
 
@@ -112,7 +114,7 @@ const EditUser = () => {
             credentials: "include",
         }
 
-        // requestBody.id = parseInt(userEdit.id)
+        requestBody.id = parseInt(userEdit.id)
         // requestBody.position_id = parseInt(userEdit.position_id)
 
         fetch(`/admin/edit-user/${userEdit.id}`, requestOptions)
@@ -218,11 +220,11 @@ const EditUser = () => {
                             title={"Position ID"}
                             className={"form-control"}
                             type="number"
-                            name="position_id"
-                            value={userEdit.position_id}
-                            onChange={handleChange("position_id")}
-                            errorDiv={hasError("position_id") ? "text-danger" : "d-none"}
-                            errorMsg={"position_id is required"}
+                            name="user_id"
+                            value={userEdit.user_id}
+                            onChange={handleChange("user_id")}
+                            errorDiv={hasError("user_id") ? "text-danger" : "d-none"}
+                            errorMsg={"user_id is required"}
                         />
 
                         <hr/>
