@@ -20,14 +20,17 @@ const AddEmployee = () => {
         email: "",
         password: "",
         position_name: "",
-        user_id: "",
+        shifts: "",
+        position_id: "",
     })
 
     const [positionForUser, setPositionForUser] = useState([])
 
     let positionOptions = []
 
-    let pos_id = ""
+    const [shiftsForUser, setshiftsForUser] = useState([])
+    let shiftOptions = []
+
 
     useEffect(() => {
         if (jwtToken === "") {
@@ -43,7 +46,7 @@ const AddEmployee = () => {
             headers: header,
         }
 
-        fetch(`/position-for-user`, requestOptions)
+        fetch(`/positions`, requestOptions)
             .then((response) => {
                 if (response.status !== 200) {
                     setError("Invalid response code: " + response.status)
@@ -59,11 +62,20 @@ const AddEmployee = () => {
                     email: "",
                     password: "",
                     position_name: "",
-                    user_id: "",
+                    shifts: "",
+                    position_id: "",
                 })
 
             })
             .catch(err => console.log(err));
+
+        fetch(`/all-shifts`, requestOptions)
+        .then((response) => {
+            return response.json();
+        })
+        .then((data) => {
+            setshiftsForUser(data)
+        })
 
     }, [jwtToken, nav]);
 
@@ -88,7 +100,8 @@ const AddEmployee = () => {
             {field: user.email, name: "email"},
             {field: user.password, name: "password"},
             {field: user.position_name, name: "position_name"},
-            {field: user.user_id, name: "user_id"},
+            {field: shiftsForUser.name, name: "shifts"},
+            {field: user.position_id, name: "position_id"},
         ]
 
         required.forEach(function (obj) {
@@ -137,6 +150,12 @@ const AddEmployee = () => {
     positionForUser.map((pos) =>  (
         positionOptions.push({id : pos.position_name, value: pos.position_name})
     ))
+
+    shiftsForUser.map((shift) => (
+        shiftOptions.push({id : shift.name, value: shift.name})
+))
+
+    console.log(shiftOptions)
 
     if (error !== null) {
         return <div>Error: {error.message}</div>
@@ -204,17 +223,28 @@ const AddEmployee = () => {
                             errorDiv={hasError("position_name") ? "text-danger" : "d-none"}
                         />
 
+                        <Select
+                            title={"Shift"}
+                            name={"shifts"}
+                            options={shiftOptions}
+                            value={shiftsForUser.name}
+                            onChange={handleChange("shifts")}
+                            placeHolder={"Choose..."}
+                            errorMsg={"Please choose shift for user"}
+                            errorDiv={hasError("name") ? "text-danger" : "d-none"}
+                        />
+
                         <Input
                             title={"Position ID"}
                             className={"form-control"}
                             type="number"
-                            name="user_id"
-                            required={"user_id"}
+                            name="position_id"
+                            required={"position_id"}
                             value={positionForUser.id}
                             placeholder={positionForUser.id}
-                            onChange={handleChange("user_id")}
+                            onChange={handleChange("position_id")}
                             errorDiv={hasError("position_id") ? "text-danger" : "d-none"}
-                            errorMsg={"user_id is required"}
+                            errorMsg={"position_id is required"}
                         />
 
                         <hr/>
