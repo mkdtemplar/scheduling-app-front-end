@@ -135,7 +135,7 @@ const AddShift = () => {
                 if (data.error) {
                     console.log(data.error);
                 } else {
-                    nav("/all-employees");
+                    nav("/all-shifts");
                 }
             })
             .catch(err => {
