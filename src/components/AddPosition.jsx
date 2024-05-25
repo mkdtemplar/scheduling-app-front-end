@@ -1,7 +1,6 @@
 import {useNavigate, useOutletContext} from "react-router-dom";
 import {useEffect, useState} from "react";
 import Input from "./form/input";
-import Select from "./form/Select";
 
 const AddPosition = () => {
 

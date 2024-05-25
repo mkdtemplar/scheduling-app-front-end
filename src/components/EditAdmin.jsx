@@ -21,10 +21,6 @@ const EditAdmin = () => {
         password: ""
     })
 
-    if (id === undefined) {
-        id = 0;
-    }
-
     const handleChange = () => (event) => {
         let value = event.target.value ;
         let name = [event.target.name];
@@ -104,7 +100,7 @@ const EditAdmin = () => {
         // requestBody.id = parseInt(userEdit.id)
         // requestBody.position_id = parseInt(userEdit.position_id)
 
-        fetch(`/admin//update-admin/${adminEdit.id}`, requestOptions)
+        fetch(`/admin/update-admin/${adminEdit.id}`, requestOptions)
             .then((response) => response.json())
             .then((data) => {
                 if (data.error) {

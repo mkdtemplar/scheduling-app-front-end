@@ -17,90 +17,12 @@ const EditPosition = () => {
         return errors.indexOf(key) !== -1
     }
 
-
-
     const [position, setPosition] = useState({
         id: "",
         position_name: "",
-        users: [],
-        users_array: [],
-        shifts: [],
     });
 
-    if (id === undefined) {
-        id = 0
-    }
 
-    useEffect(() => {
-        if (jwtToken === "") {
-            nav("/login")
-        }
-
-        if (id === 0) {
-            setPosition({
-                id: "",
-                position_name: "",
-                users: [],
-                users_array: [],
-                shifts: [],
-            })
-            const header = new Headers()
-            header.append('Content-Type', 'application/json')
-
-            const requestOptions = {
-                method: "GET",
-                headers: header,
-            }
-
-            fetch(`/all-users`, requestOptions)
-                .then((res) => res.json())
-                .then((data) => {
-                    const checks =  []
-
-                    data.forEach((item) => {
-                        checks.push({id: item.id, checked: false, user: item.first_name + " " + item.last_name})
-                    })
-                    setPosition(p =>({
-                        ...p,
-                        users: checks,
-                        users_array: [],
-                    }))
-                })
-                .catch(err => console.log(err));
-        } else {
-            // editing a position
-        }
-    }, [jwtToken, nav, id]);
-
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        let errors = []
-        let required = [
-            {field: position.position_name, name: "position_name"},
-        ]
-
-        required.forEach(function (obj) {
-            if (obj.field === "") {
-                errors.push(obj.name)
-            }
-        })
-
-        if (position.users_array === 0) {
-            Swal.fire({
-                title: "Error!",
-                text: 'You must choose employee',
-                icon: "error",
-                confirmButtonText: "OK",
-            })
-            errors.push("users")
-        }
-
-        setErrors(errors)
-
-        if (errors.length > 0) {
-            return false
-        }
-    }
     const handleChange = () => (event) => {
         let value = event.target.value ;
         let name = [event.target.name];
@@ -111,75 +33,156 @@ const EditPosition = () => {
 
     }
 
-    const handleCheck = (event, pos) => {
-        console.log("handleCheck called");
-        console.log("value in handleCheck: ", event.target.value)
-        console.log("checked is: ", event.target.checked)
-        console.log("position is: ", position)
-
-        let tempArr = []
-        tempArr = position.users
-        console.log(tempArr)
-        tempArr[pos].checked = !tempArr[pos].checked
-
-        let tmpIDs = position.users_array
-
-        if (!event.target.checked) {
-            tmpIDs.splice(tmpIDs.indexOf(event.target.value))
-        } else {
-            tmpIDs.push(parseInt(event.target.value, 10))
+    useEffect(() => {
+        if (jwtToken === "") {
+            nav("/login");
         }
 
-        setPosition({
-            ...position,
-            users_array: tmpIDs
+        const headers = new Headers();
+        headers.append("Content-Type", "application/json");
+        headers.append("Authorization", "Bearer " + jwtToken);
+
+        const requestOptions = {
+            method: "GET",
+            headers: headers,
+            credentials: "include"
+        }
+
+        fetch(`/position/${id}`, requestOptions)
+            .then((response) => {
+                if (response.status !== 200) {
+                    setError("Invalid response code: " + response.status)
+                }
+                return response.json()
+            })
+            .then((data) => {
+                setPosition(data)
+            })
+
+    }, [id, nav, jwtToken]);
+
+    const handleSubmitUpdatePosition = (event) => {
+        event.preventDefault();
+
+        let errors = []
+
+        let required = [
+            {field: position.id, name: "id"},
+            {field: position.position_name, name: "position_name"},
+        ]
+
+        required.forEach(function (obj) {
+            if (obj.field === "") {
+                errors.push(obj.name);
+            }
         })
+
+        setErrors(errors);
+
+        if (errors.length > 0) {
+            return false;
+        }
+
+        const headers = new Headers();
+        headers.append("Content-Type", "application/json");
+        headers.append("Authorization", "Bearer " + jwtToken);
+
+        let method = "PATCH";
+
+
+        const requestBody = position;
+        let requestOptions = {
+            body: JSON.stringify(requestBody),
+            method: method,
+            headers: headers,
+            credentials: "include",
+        }
+
+        fetch(`/admin/update-position/${position.id}`, requestOptions)
+            .then((response) => response.json())
+            .then((data) => {
+                if (data.error) {
+                    console.log(data.error);
+                } else {
+                    nav("/positions");
+                }
+            })
+            .catch(err => {
+                console.log(err);
+            })
     }
 
-    return (
-        <div>
-            <h2>Add/Edit Position</h2>
-            <hr/>
-            <pre>{JSON.stringify(position, null, 3)}</pre>
-            <form onSubmit={handleSubmit}>
-                <input type="hidden" name="id" id="id" value={position.id}/>
-                <Input
-                    title={"Position Name"}
-                    className={"form-control"}
-                    type="text"
-                    name="position_name"
-                    value={position.position_name}
-                    onChange={handleChange("position_name")}
-                    errorDiv = {hasError("position_name") ? "text-danger" : "d-none"}
-                    errorMsg={"Position Name is required"}
-                />
+    const confirmDelete = () => {
+        Swal.fire({
+            title: 'Delete position?',
+            text: "You cannot undo this action!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                let headers = new Headers();
+                headers.append("Authorization", "Bearer " + jwtToken)
 
-                <h3>Users</h3>
-
-                {position.users && position.users.length > 1 &&
-
-                    <>
-                        {Array.from(position.users).map((u, index) =>
-                            <Checkbox
-                                title={u.user}
-                                name={"users"}
-                                key={index}
-                                id={"users-" + index}
-                            onChange={(event) => handleCheck(event, index)}
-                            value={u.id}
-                            checked={position.users[index].checked}
-                        />
-
-                    )}
-                    </>
+                const requestOptions = {
+                    method: "DELETE",
+                    headers: headers,
                 }
 
-                <hr/>
-                <button className="btn btn-primary">Save</button>
+                fetch(`/admin/delete-position/${position.id}`, requestOptions)
+                    .then((response) => response.json())
+                    .then((data) => {
+                        if (data.error) {
+                            console.log(data.error);
+                        } else {
+                            nav("/positions");
+                        }
+                    })
+                    .catch(err => {console.log(err)});
+            }
+        })
+    }
+    if (error !== null) {
+        return <div>Error: {error.message}</div>
+    } else {
 
-            </form>
-        </div>
-    )
+        return (
+            <>
+                <div>
+                    <h2>Edit Position</h2>
+                    <hr/>
+                    <form onSubmit={handleSubmitUpdatePosition}>
+                        <Input
+                            title={"Position ID"}
+                            className={"form-control"}
+                            type="number"
+                            name="id"
+                            value={position.id}
+                            onChange={handleChange("id")}
+                            errorDiv={hasError("id") ? "text-danger" : "d-none"}
+                            errorMsg={"id is required"}
+                        />
+                        <Input
+                            title={"Position Name"}
+                            className={"form-control"}
+                            type="text"
+                            name="position_name"
+                            required={"name_surname"}
+                            value={position.position_name}
+                            onChange={handleChange("position_name")}
+                            errorDiv={hasError("position_name") ? "text-danger" : "d-none"}
+                            errorMsg={"position_name is required"}
+                        />
+                        <hr/>
+                        <button className="btn btn-primary">Update Position</button>
+                        <a href="#!" className="btn btn-danger ms-5 " onClick={confirmDelete}>Delete Position</a>
+                    </form>
+                </div>
+            </>
+        )
+    }
 }
 
 export default EditPosition;

@@ -30,12 +30,6 @@ const ManagePosition = () => {
 
     }, [jwtToken, navigate]);
 
-    if (position.users) {
-        position.users = Object.values(position.users);
-    } else {
-        position.users = [];
-    }
-
     return (
         <div>
             <h2>Positions</h2>
@@ -55,7 +49,7 @@ const ManagePosition = () => {
                 {position.map((m) => (
                     <tr key={m.id}>
                         <td>
-                            <Link to={`/position/${m.id}`}>
+                            <Link to={`/admin/positions/${m.id}`}>
                                 {m.position_name}
                             </Link>
                         </td>
