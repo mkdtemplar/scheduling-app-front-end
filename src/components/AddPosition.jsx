@@ -97,9 +97,6 @@ const AddPosition = () => {
                 <div>
                     <h2>Add Position</h2>
                     <hr/>
-                    {/*<pre>{JSON.stringify(shift, null, 3)}</pre>*/}
-                    {/*<hr/>*/}
-                    {/*<pre>{JSON.stringify(positionIdForShift, null, 3)}</pre>*/}
                     <form onSubmit={handleSubmitPosition}>
                         <Input
                             title={"Position ID"}
