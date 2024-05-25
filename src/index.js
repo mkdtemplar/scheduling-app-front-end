@@ -76,6 +76,10 @@ const router = createBrowserRouter([
                 element: <ManagePosition/>,
             },
             {
+                path: "/admin/add-position",
+                element: <AddPosition/>,
+            },
+            {
                 path: "/admin/positions/0",
                 element: <EditPosition/>,
             },
