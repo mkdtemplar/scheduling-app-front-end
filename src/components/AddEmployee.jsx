@@ -27,7 +27,6 @@ const AddEmployee = () => {
 
     let positionOptions = []
 
-    let pos_id = ""
 
     useEffect(() => {
         if (jwtToken === "") {

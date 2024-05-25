@@ -24,6 +24,7 @@ import ManageAdmins from "./components/ManageAdmins";
 import EditAdmin from "./components/EditAdmin";
 import Admin from "./components/Admin";
 import AllAdmins from "./components/AllAdmins";
+import AddShift from "./components/AddShift";
 
 const router = createBrowserRouter([
     {
@@ -111,6 +112,10 @@ const router = createBrowserRouter([
             {
                 path: "/admin/all-admins",
                 element: <AllAdmins/>,
+            },
+            {
+                path: "/admin/add-shift",
+                element: <AddShift/>,
             },
         ]
     }

@@ -101,6 +101,7 @@ function App() {
                             <Link to="/login" className="list-group-item list-group-item-action">Login</Link>
                             <Link to="/positions" className="list-group-item list-group-item-action">Positions</Link>
                             <Link to="/all-employees" className="list-group-item list-group-item-action">All Employees</Link>
+                            <Link to="/all-shifts" className="list-group-item list-group-item-action">All Shifts</Link>
                             {jwtToken !== "" &&
                                 <>
                                     <Link to="/admin/add-employees" className="list-group-item list-group-item-action">Add employees</Link>
@@ -109,6 +110,7 @@ function App() {
                                     <Link to="/admin/edit-employees" className="list-group-item list-group-item-action">Manage Employees</Link>
                                     <Link to="/admin/add-admin" className="list-group-item list-group-item-action">Add Admin</Link>
                                     <Link to="/admin/edit-admin" className="list-group-item list-group-item-action">Manage Admin</Link>
+                                    <Link to="/admin/add-shift" className="list-group-item list-group-item-action">Add Shift</Link>
                                 </>
                             }
 
