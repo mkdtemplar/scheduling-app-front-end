@@ -149,11 +149,11 @@ const AddShift = () => {
         return (
             <>
                 <div>
-                    <h2>Add Employee</h2>
+                    <h2>Add Shift</h2>
                     <hr/>
-                    <pre>{JSON.stringify(shift, null, 3)}</pre>
-                    <hr/>
-                    <pre>{JSON.stringify(positionIdForShift, null, 3)}</pre>
+                    {/*<pre>{JSON.stringify(shift, null, 3)}</pre>*/}
+                    {/*<hr/>*/}
+                    {/*<pre>{JSON.stringify(positionIdForShift, null, 3)}</pre>*/}
                     <form onSubmit={handleSubmit}>
                         <Input
                             title={"Shift ID"}

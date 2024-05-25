@@ -145,9 +145,8 @@ const AddEmployee = () => {
                 <div>
                     <h2>Add Employee</h2>
                     <hr/>
-                    <pre>{JSON.stringify(user, null, 3)}</pre>
-                    <hr/>
-                    <pre>{JSON.stringify(positionForUser, null, 3)}</pre>
+                    {/*<pre>{JSON.stringify(user, null, 3)}</pre>*/}
+                    {/*<pre>{JSON.stringify(positionForUser, null, 3)}</pre>*/}
                     <form onSubmit={handleSubmitUser}>
                         <Input
                             title={"Employee ID"}
