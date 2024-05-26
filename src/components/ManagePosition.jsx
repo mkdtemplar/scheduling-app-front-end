@@ -40,9 +40,7 @@ const ManagePosition = () => {
                     <th>Position Name</th>
                     <th>Name/Surname</th>
                     <th>Email</th>
-                    <th> Current Position</th>
-                    <th> Role</th>
-                    <th>Shifts</th>
+                    <th>Shifts/Coverage</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -71,25 +69,9 @@ const ManagePosition = () => {
                             }
                         </td>
                         <td>
-                            {m.users !== undefined ?
-                                m.users?.map((user) => (
-                                    <tr>{user.current_position}</tr>
-                                ))
-                                : <td></td>
-                            }
-                        </td>
-                        <td>
-                            {m.users !== undefined ?
-                                m.users?.map((user) => (
-                                    <tr>{user.role}</tr>
-                                ))
-                                : <td></td>
-                            }
-                        </td>
-                        <td>
-                            {m.users !== undefined ?
-                                m.users?.map((user) => (
-                                    <tr>{user.shifts}</tr>
+                            {m.shifts !== undefined ?
+                                m.shifts?.map((user) => (
+                                    <tr>{user.name + " : " + user.start_time + " - " + user.end_time}</tr>
                                 ))
                                 : <td></td>
                             }

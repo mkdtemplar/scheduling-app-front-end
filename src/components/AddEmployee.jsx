@@ -26,6 +26,7 @@ const AddEmployee = () => {
     const [positionForUser, setPositionForUser] = useState([])
 
     let positionOptions = []
+    let positionIdOptions = []
 
 
     useEffect(() => {
@@ -137,6 +138,10 @@ const AddEmployee = () => {
         positionOptions.push({id : pos.position_name, value: pos.position_name})
     ))
 
+    positionForUser.map((posId) => (
+        positionIdOptions.push({id : posId.id, value: posId.position_name})
+    ))
+
     if (error !== null) {
         return <div>Error: {error.message}</div>
     } else {
@@ -201,18 +206,15 @@ const AddEmployee = () => {
                             errorMsg={"Please choose position for user"}
                             errorDiv={hasError("position_name") ? "text-danger" : "d-none"}
                         />
-
-                        <Input
+                        <Select
                             title={"Position ID"}
-                            className={"form-control"}
-                            type="number"
-                            name="user_id"
-                            required={"user_id"}
-                            value={positionForUser.id}
-                            placeholder={positionForUser.id}
+                            name={"user_id"}
+                            options={positionIdOptions}
+                            value={positionForUser.position_name}
                             onChange={handleChange("user_id")}
-                            errorDiv={hasError("position_id") ? "text-danger" : "d-none"}
-                            errorMsg={"user_id is required"}
+                            placeHolder={"Choose..."}
+                            errorMsg={"Please choose user_id for user"}
+                            errorDiv={hasError("user_id") ? "text-danger" : "d-none"}
                         />
 
                         <hr/>
