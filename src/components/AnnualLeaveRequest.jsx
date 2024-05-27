@@ -27,13 +27,13 @@ const AnnualLeaveRequest = () => {
     let positionOptions = []
 
     useEffect(() => {
-        if (jwtToken === "") {
-            nav("/login")
-        }
+        // if (jwtToken === "") {
+        //     nav("/login")
+        // }
 
         const header = new Headers()
         header.append('Content-Type', 'application/json')
-        header.append("Authorization", "Bearer " + jwtToken);
+        // header.append("Authorization", "Bearer " + jwtToken);
 
         const requestOptions = {
             method: "GET",
