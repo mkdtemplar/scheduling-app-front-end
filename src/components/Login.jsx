@@ -59,12 +59,12 @@ const Login = () => {
                     <Input title="Username" type="email" className="form-control" name="user_name"
                            autoComplete="user_name-new"
                            onChange={(event) => setUsername(event.target.value)}
-                           required={"user_name"}
+                           // required={"user_name"}
                     />
                     <Input title="Password" type="password" className="form-control" name="password"
                            autoComplete="password-new"
                            onChange={(event) => setPassword(event.target.value)}
-                           required={"password"}
+                           // required={"password"}
                     />
                     <hr/>
                     <input type="submit" className="btn btn-primary" value="Login"/>

@@ -32,7 +32,7 @@ const Positions = () => {
                     <th>Position Name</th>
                     <th>Name/Surname</th>
                     <th>Email</th>
-                    <th>Shifts</th>
+                    <th>Shifts/Coverage</th>
                 </tr>
                 </thead>
                 <tbody>
