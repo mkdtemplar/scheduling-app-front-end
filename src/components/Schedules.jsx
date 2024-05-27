@@ -47,7 +47,10 @@ const Schedules = () => {
                         <tr>
                             <td>Front Entrance</td>
                             <td>Person Name</td>
-                            <td className="text-center">D</td>
+                            {/*<td className="text-center">D</td>*/}
+                            {dayNames.map(day => day === "Sat" || day === "Sun" ? <td scope="row">{""}</td> :
+                                <td scope="row">{"D"}</td>)}
+                            {/*<td className="text-center">E</td>*/}
                         </tr>
                     </thead>
                 </table>

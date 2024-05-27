@@ -96,7 +96,7 @@ function App() {
                         <div className="list-group">
                             <Link to="/" className="list-group-item list-group-item-action">Home</Link>
                             <Link to="/schedules" className="list-group-item list-group-item-action">Schedules</Link>
-                            <Link to="/schedule/:id" className="list-group-item list-group-item-action">Schedule</Link>
+                            <Link to="/schedule/:id" className="list-group-item list-group-item-action">Daily assignments</Link>
                             <Link to="/annual-leave-request" className="list-group-item list-group-item-action">Annual Leave Request</Link>
                             <Link to="/login" className="list-group-item list-group-item-action">Login</Link>
                             <Link to="/positions" className="list-group-item list-group-item-action">Positions</Link>

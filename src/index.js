@@ -11,7 +11,7 @@ import Positions from "./components/Positions";
 import AddPosition from "./components/AddPosition";
 import AddEmployee from "./components/AddEmployee";
 import Login from "./components/Login";
-import Schedule from "./components/Schedule";
+import DailyAssignments from "./components/DailyAssignments";
 import Position from "./components/Position";
 import ManagePosition from "./components/ManagePosition";
 import EditPosition from "./components/EditPosition";
@@ -41,7 +41,7 @@ const router = createBrowserRouter([
             },
             {
                 path: "/schedule/:id",
-                element: <Schedule />,
+                element: <DailyAssignments />,
             },
             {
                 path: "/annual-leave-request",

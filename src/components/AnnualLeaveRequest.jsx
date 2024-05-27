@@ -77,7 +77,7 @@ const AnnualLeaveRequest = () => {
         let errors = []
 
         let required = [
-            {field:annualLeave.email, name: "name_suremailname"},
+            {field:annualLeave.email, name: "email"},
             {field: annualLeave.position_name, name: "position_name"},
             {field: annualLeave.start_date, name: "start_date"},
             {field: annualLeave.end_date, name: "end_date"},
@@ -134,7 +134,7 @@ const AnnualLeaveRequest = () => {
         return (
             <>
                 <div>
-                    <h2>Add Employee</h2>
+                    <h2>Annual Leave Request</h2>
                     <hr/>
                     {/*<pre>{JSON.stringify(annualLeave, null, 3)}</pre>*/}
                     {/*<pre>{JSON.stringify(positionForAnnualLeave, null, 3)}</pre>*/}
@@ -183,7 +183,7 @@ const AnnualLeaveRequest = () => {
                         />
 
                         <hr/>
-                        <button className="btn btn-primary">Save</button>
+                        <button className="btn btn-primary">Send Request</button>
                     </form>
 
                 </div>
