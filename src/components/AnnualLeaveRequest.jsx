@@ -109,9 +109,6 @@ const AnnualLeaveRequest = () => {
             headers: headers,
             // credentials: "include",
         }
-        // requestBody.id = parseInt(user.id)
-        // requestBody.position_id = parseInt(user.position_id)
-        console.log(JSON.stringify(requestBody))
 
         fetch(`/create-annual-leave`, requestOptions)
             .then((response) => response.json())
@@ -131,7 +128,6 @@ const AnnualLeaveRequest = () => {
         positionOptions.push({id: pos.position_name, value: pos.position_name})
     ))
 
-
     if (error !== null) {
         return <div>Error: {error.message}</div>
     } else {
@@ -140,8 +136,8 @@ const AnnualLeaveRequest = () => {
                 <div>
                     <h2>Add Employee</h2>
                     <hr/>
-                    <pre>{JSON.stringify(annualLeave, null, 3)}</pre>
-                    <pre>{JSON.stringify(positionForAnnualLeave, null, 3)}</pre>
+                    {/*<pre>{JSON.stringify(annualLeave, null, 3)}</pre>*/}
+                    {/*<pre>{JSON.stringify(positionForAnnualLeave, null, 3)}</pre>*/}
                     <form onSubmit={handleSubmitAnnualLeave}>
                         <Input
                             title={"Email"}
