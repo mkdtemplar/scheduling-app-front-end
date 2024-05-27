@@ -164,7 +164,6 @@ const AnnualLeaveRequest = () => {
                             className={"form-control"}
                             type="date"
                             name="start_date"
-                            required={"start_date"}
                             value={annualLeave.start_date}
                             onChange={handleChange("start_date")}
                             errorDiv={hasError("start_date") ? "text-danger" : "d-none"}
@@ -175,7 +174,6 @@ const AnnualLeaveRequest = () => {
                             className={"form-control"}
                             type="date"
                             name="end_date"
-                            required={"end_date"}
                             value={annualLeave.end_date}
                             onChange={handleChange("end_date")}
                             errorDiv={hasError("end_date") ? "text-danger" : "d-none"}
