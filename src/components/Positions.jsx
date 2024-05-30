@@ -64,7 +64,7 @@ const Positions = () => {
                         <td>
                             {m.shifts !== undefined ?
                                 m.shifts?.map((user) => (
-                                    <tr>{user.name}</tr>
+                                    <tr>{user.name + " : " + user.start_time + " - " + user.end_time}</tr>
                                 ))
                                 : <td></td>
                             }
