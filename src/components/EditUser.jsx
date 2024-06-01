@@ -182,6 +182,7 @@ const EditUser = () => {
                             onChange={handleChange("id")}
                             errorDiv={hasError("id") ? "text-danger" : "d-none"}
                             errorMsg={"id is required"}
+                            readonly={true}
                         />
                         <Input
                             title={"Name And Surname"}

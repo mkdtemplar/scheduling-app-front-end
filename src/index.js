@@ -6,7 +6,6 @@ import ErrorPage from "./components/ErrorPage";
 import Home from "./components/Home";
 import Schedules from "./components/Schedules";
 import AnnualLeaveRequest from "./components/AnnualLeaveRequest";
-import ManageSchedules from "./components/ManageSchedules";
 import Positions from "./components/Positions";
 import AddPosition from "./components/AddPosition";
 import AddEmployee from "./components/AddEmployee";
@@ -47,10 +46,7 @@ const router = createBrowserRouter([
                 path: "/annual-leave-request",
                 element: <AnnualLeaveRequest />,
             },
-            {
-                path: "/admin",
-                element: <ManageSchedules/>,
-            },
+         
             {
                 path: "/positions",
                 element: <Positions/>
@@ -79,10 +75,7 @@ const router = createBrowserRouter([
                 path: "/admin/add-position",
                 element: <AddPosition/>,
             },
-            {
-                path: "/admin/positions/0",
-                element: <EditPosition/>,
-            },
+           
             {
                 path: "/admin/positions/:id",
                 element: <EditPosition/>,

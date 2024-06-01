@@ -106,7 +106,7 @@ const AddAdmin = () => {
                 <div>
                     <h2>Create Admin</h2>
                     <hr/>
-                    <pre>{JSON.stringify(admin, null, 3)}</pre>
+                    {/* <pre>{JSON.stringify(admin, null, 3)}</pre> */}
                     <form onSubmit={handleSubmitAdmin}>
                         <Input
                             title={"Admin ID"}

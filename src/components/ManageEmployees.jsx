@@ -32,7 +32,6 @@ const ManageEmplyees = () => {
                     <th>Name And Surname</th>
                     <th>Email</th>
                     <th> Current Position</th>
-                    <th>Shifts</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -57,14 +56,6 @@ const ManageEmplyees = () => {
 
                                 <tr>{m.position_name}</tr>
 
-                                : <td></td>
-                            }
-                        </td>
-                        <td>
-                            {m.users !== undefined ?
-                                m.users?.map((user) => (
-                                    <tr>{user.shifts}</tr>
-                                ))
                                 : <td></td>
                             }
                         </td>

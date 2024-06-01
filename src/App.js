@@ -107,7 +107,6 @@ function App() {
                                     <Link to="/admin/add-employees" className="list-group-item list-group-item-action">Add employees</Link>
                                     <Link to="/admin/add-position" className="list-group-item list-group-item-action">Add Position</Link>
                                     <Link to="/admin/manage-position" className="list-group-item list-group-item-action">Manage positions</Link>
-                                    <Link to="/admin/mange-schedule" className="list-group-item list-group-item-action">Manage Schedule</Link>
                                     <Link to="/admin/edit-employees" className="list-group-item list-group-item-action">Manage Employees</Link>
                                     <Link to="/admin/add-admin" className="list-group-item list-group-item-action">Add Admin</Link>
                                     <Link to="/admin/edit-admin" className="list-group-item list-group-item-action">Manage Admin</Link>
