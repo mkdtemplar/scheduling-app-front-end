@@ -27,13 +27,9 @@ const AnnualLeaveRequest = () => {
     let positionOptions = []
 
     useEffect(() => {
-        // if (jwtToken === "") {
-        //     nav("/login")
-        // }
-
+   
         const header = new Headers()
         header.append('Content-Type', 'application/json')
-        // header.append("Authorization", "Bearer " + jwtToken);
 
         const requestOptions = {
             method: "GET",
@@ -97,7 +93,6 @@ const AnnualLeaveRequest = () => {
 
         const headers = new Headers();
         headers.append("Content-Type", "application/json");
-        // headers.append("Authorization", "Bearer " + jwtToken);
 
         let method = "PUT";
 
@@ -107,7 +102,6 @@ const AnnualLeaveRequest = () => {
             body: JSON.stringify(requestBody),
             method: method,
             headers: headers,
-            // credentials: "include",
         }
 
         fetch(`/create-annual-leave`, requestOptions)

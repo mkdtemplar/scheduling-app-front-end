@@ -64,7 +64,6 @@ const Login = () => {
                     <Input title="Password" type="password" className="form-control" name="password"
                            autoComplete="password-new"
                            onChange={(event) => setPassword(event.target.value)}
-                           // required={"password"}
                     />
                     <hr/>
                     <input type="submit" className="btn btn-primary" value="Login"/>
