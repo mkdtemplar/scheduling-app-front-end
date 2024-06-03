@@ -109,7 +109,6 @@ const AddEmployee = () => {
 
         let method = "PUT";
 
-
         const requestBody = user;
         let requestOptions = {
             body: JSON.stringify(requestBody),
@@ -117,8 +116,6 @@ const AddEmployee = () => {
             headers: headers,
             credentials: "include",
         }
-        // requestBody.id = parseInt(user.id)
-        // requestBody.position_id = parseInt(user.position_id)
 
         fetch(`/admin/add-user`, requestOptions)
             .then((response) => response.json())
