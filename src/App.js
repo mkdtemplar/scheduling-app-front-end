@@ -111,6 +111,7 @@ function App() {
                                     <Link to="/admin/add-admin" className="list-group-item list-group-item-action">Add Admin</Link>
                                     <Link to="/admin/edit-admin" className="list-group-item list-group-item-action">Manage Admin</Link>
                                     <Link to="/admin/add-shift" className="list-group-item list-group-item-action">Add Shift</Link>
+                                    <Link to="/admin/add-daily-schedule" className="list-group-item list-group-item-action">Create Daily Schedule</Link>
                                 </>
                             }
 

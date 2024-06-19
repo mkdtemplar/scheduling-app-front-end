@@ -20,3 +20,4 @@ const AddDailySchedule = () => {
         shifts: [],
     })
 }
+export default AddDailySchedule

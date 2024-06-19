@@ -26,6 +26,7 @@ import AllAdmins from "./components/AllAdmins";
 import AddShift from "./components/AddShift";
 import Shift from "./components/Shift";
 import AllShifts from "./components/AllShifts";
+import AddDailySchedule from './components/AddDailySchedule';
 
 const router = createBrowserRouter([
     {
@@ -123,7 +124,11 @@ const router = createBrowserRouter([
             {
                 path: "/all-shifts",
                 element: <AllShifts/>
-            }
+            },
+            {
+                path: "/admin/add-daily-schedule",
+                element: <AddDailySchedule/>
+            },
         ]
     }
 ])
