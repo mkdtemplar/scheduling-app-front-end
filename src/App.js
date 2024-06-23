@@ -114,6 +114,7 @@ function App() {
                                     <Link to="/admin/add-daily-schedule" className="list-group-item list-group-item-action">Create Daily Schedule</Link>
                                 </>
                             }
+                            <Link to="/admin/all-daily-schedules" className="list-group-item list-group-item-action">Daily Schedules</Link>
 
                         </div>
                     </nav>

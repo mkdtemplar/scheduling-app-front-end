@@ -30,7 +30,6 @@ const AddDailySchedule = () => {
     let positionNamesOptions = []
     let employeesNamesOptions = []
     let shiftNamesOptions = []
-    let posName = []
 
     useEffect(() => {
         if (jwtToken === "") {
@@ -157,7 +156,7 @@ const AddDailySchedule = () => {
                 if (data.error) {
                     console.log(data.error);
                 } else {
-                    nav("/all-employees");
+                    nav("/admin/all-daily-schedules");
                 }
             })
             .catch(err => {
